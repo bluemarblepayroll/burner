@@ -7,13 +7,13 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require 'acts_as_hashable'
-require 'benchmark'
-require 'json'
-require 'objectable'
-require 'securerandom'
-require 'singleton'
-require 'stringento'
-require 'yaml'
-
-require_relative 'burner/cli'
+module Burner
+  class Jobs
+    # Do nothing.
+    class Dummy < Job
+      def perform(_output, _payload, _params)
+        nil
+      end
+    end
+  end
+end

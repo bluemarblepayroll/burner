@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.email       = ['mruggio@bluemarblepayroll.com']
   s.files       = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   s.bindir      = 'exe'
-  s.executables = %w[]
+  s.executables = %w[burner]
   s.homepage    = 'https://github.com/bluemarblepayroll/burner'
   s.license     = 'MIT'
   s.metadata    = {

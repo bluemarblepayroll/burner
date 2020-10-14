@@ -7,7 +7,17 @@
 # LICENSE file in the root directory of this source tree.
 #
 
+require 'csv'
 require 'spec_helper'
+
+class ParseCsv < Burner::Job
+  def perform(_output, payload, _params)
+    payload.value = CSV.parse(payload.value, headers: true).map(&:to_h)
+
+    nil
+  end
+end
+Burner::Jobs.register('parse_csv', ParseCsv)
 
 describe Burner::Pipeline do
   let(:params)     { { name: 'Funky' } }
@@ -67,6 +77,149 @@ describe Burner::Pipeline do
 
       expect(string_out.read).not_to include('Parameters:')
       expect(string_out.read).to     include('No parameters passed in.')
+    end
+
+    it 'short circuits when Job#perform returns false' do
+      pipeline = {
+        jobs: [
+          { name: :nothing1 },
+          {
+            name: :check,
+            type: 'io/exist',
+            short_circuit: true,
+            path: 'does_not_exist_123.t'
+          },
+          { name: :nothing2 }
+        ],
+        steps: %i[nothing1 check nothing2]
+      }
+
+      Burner::Pipeline.make(pipeline).execute(output: output, params: params)
+
+      expect(string_out.read).not_to include('nothing2')
+      expect(string_out.read).to     include('Job returned false, ending pipeline.')
+    end
+  end
+
+  describe 'README examples' do
+    specify 'json-to-yaml converter' do
+      pipeline = {
+        jobs: [
+          {
+            name: :read,
+            type: 'io/read',
+            path: '{input_file}'
+          },
+          {
+            name: :output_id,
+            type: :echo,
+            message: 'The job id is: {__id}'
+          },
+          {
+            name: :output_value,
+            type: :echo,
+            message: 'The current value is: {__value}'
+          },
+          {
+            name: :parse,
+            type: 'deserialize/json'
+          },
+          {
+            name: :convert,
+            type: 'serialize/yaml'
+          },
+          {
+            name: :write,
+            type: 'io/write',
+            path: '{output_file}'
+          }
+        ],
+        steps: %i[
+          read
+          output_id
+          output_value
+          parse
+          convert
+          output_value
+          write
+        ]
+      }
+
+      params = {
+        input_file: File.join('spec', 'fixtures', 'input.json'),
+        output_file: File.join(TEMP_DIR, "#{SecureRandom.uuid}.yaml")
+      }
+
+      Burner::Pipeline.make(pipeline).execute(output: output, params: params)
+
+      actual = File.open(params[:output_file], 'r', &:read)
+
+      expect(actual).to eq("---\nname: Funky Chicken!\n")
+    end
+
+    specify 'adding csv parsing job' do
+      pipeline = {
+        jobs: [
+          {
+            name: :read,
+            type: 'io/read',
+            path: '{input_file}'
+          },
+          {
+            name: :output_id,
+            type: :echo,
+            message: 'The job id is: {__id}'
+          },
+          {
+            name: :output_value,
+            type: :echo,
+            message: 'The current value is: {__value}'
+          },
+          {
+            name: :parse,
+            type: :parse_csv
+          },
+          {
+            name: :convert,
+            type: 'serialize/yaml'
+          },
+          {
+            name: :write,
+            type: 'io/write',
+            path: '{output_file}'
+          }
+        ],
+        steps: %i[
+          read
+          output_id
+          output_value
+          parse
+          convert
+          output_value
+          write
+        ]
+      }
+
+      params = {
+        input_file: File.join('spec', 'fixtures', 'cars.csv'),
+        output_file: File.join(TEMP_DIR, "#{SecureRandom.uuid}.yaml")
+      }
+
+      Burner::Pipeline.make(pipeline).execute(output: output, params: params)
+
+      actual = File.open(params[:output_file], 'r', &:read)
+
+      expected_yaml = <<~YAML
+        ---
+        - make: jeep
+          model: wrangler
+          year: '1991'
+        - make: honda
+          model: accord
+          year: '2000'
+      YAML
+
+      expect(actual).to eq(expected_yaml)
     end
   end
 end

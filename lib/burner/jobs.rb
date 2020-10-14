@@ -12,6 +12,7 @@ require_relative 'jobs/deserialize/json'
 require_relative 'jobs/deserialize/yaml'
 require_relative 'jobs/dummy'
 require_relative 'jobs/echo'
+require_relative 'jobs/io/exist'
 require_relative 'jobs/io/read'
 require_relative 'jobs/io/write'
 require_relative 'jobs/serialize/json'
@@ -30,6 +31,7 @@ module Burner
     register 'deserialize/yaml', Deserialize::Yaml
     register 'dummy', '',        Dummy
     register 'echo',             Echo
+    register 'io/exist',         IO::Exist
     register 'io/read',          IO::Read
     register 'io/write',         IO::Write
     register 'serialize/json',   Serialize::Json

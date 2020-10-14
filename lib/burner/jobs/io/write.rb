@@ -14,6 +14,16 @@ module Burner
     module IO
       # Write value to disk.
       class Write < Base
+        attr_reader :binary
+
+        def initialize(name:, path:, binary: false)
+          super(name: name, path: path)
+
+          @binary = binary || false
+
+          freeze
+        end
+
         def perform(output, payload, params)
           compiled_path = compile_path(params)
 
@@ -21,7 +31,15 @@ module Burner
 
           output.detail("Writing: #{compiled_path}")
 
-          File.open(compiled_path, mode) { |io| io.write(payload.value) }
+          time_in_seconds = Benchmark.measure do
+            File.open(compiled_path, mode) { |io| io.write(payload.value) }
+          end.real
+
+          payload.add_written_file(
+            logical_filename: compiled_path,
+            physical_filename: compiled_path,
+            time_in_seconds: time_in_seconds
+          )
 
           nil
         end
@@ -38,6 +56,10 @@ module Burner
           FileUtils.mkdir_p(dirname)
 
           nil
+        end
+
+        def mode
+          binary ? 'wb' : 'w'
         end
       end
     end

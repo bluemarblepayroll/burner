@@ -25,8 +25,10 @@ describe Burner::Step do
   subject { described_class.new(job) }
 
   describe '#perform' do
-    it 'delegates to Job#perform' do
-      expect(job).to receive(:perform).with(output, payload, params)
+    it 'delegates to Job#perform and adds __id and __value params' do
+      all_params = params.merge(__id: output.id, __value: payload.value)
+
+      expect(job).to receive(:perform).with(output, payload, all_params)
 
       subject.perform(output, payload, params)
     end

@@ -12,27 +12,20 @@ module Burner
     module IO
       # Common configuration/code for all IO Job subclasses.
       class Base < Job
-        attr_reader :binary, :path
+        attr_reader :path
 
-        def initialize(name:, path:, binary: false)
+        def initialize(name:, path:)
           super(name: name)
 
           raise ArgumentError, 'path is required' if path.to_s.empty?
 
-          @path   = path.to_s
-          @binary = binary || false
-
-          freeze
+          @path = path.to_s
         end
 
         private
 
         def compile_path(params)
           eval_string_template(path, params)
-        end
-
-        def mode
-          binary ? 'wb' : 'w'
         end
       end
     end

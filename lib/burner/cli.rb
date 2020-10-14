@@ -22,7 +22,7 @@ module Burner
       @params    = (config['params'] || {}).merge(cli_params)
     end
 
-    def execute
+    def invoke
       pipeline.execute(params: params)
     end
 

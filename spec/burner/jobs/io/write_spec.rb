@@ -20,12 +20,20 @@ describe Burner::Jobs::IO::Write do
   subject { described_class.make(name: 'test', path: '{path}') }
 
   describe '#perform' do
-    it "writes payload's value to file" do
+    before(:each) do
       subject.perform(output, payload, params)
+    end
 
+    it "writes payload's value to file" do
       actual = File.open(path, 'r', &:read)
 
       expect(actual).to eq(value)
+    end
+
+    it 'adds WrittenFile instance to Payload#written_files' do
+      expect(payload.written_files.length).to                  eq(1)
+      expect(payload.written_files.first.logical_filename).to  eq(path)
+      expect(payload.written_files.first.physical_filename).to eq(path)
     end
   end
 end

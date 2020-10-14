@@ -29,15 +29,19 @@ module Burner
     end
 
     def perform(output, payload, params)
+      return_value = nil
+
       output.title("#{job.class.name}#{SEPARATOR}#{job.name}")
 
       time_in_seconds = Benchmark.measure do
-        job.perform(output, payload, params)
+        job_params = (params || {}).merge(__id: output.id, __value: payload.value)
+
+        return_value = job.perform(output, payload, job_params)
       end.real.round(3)
 
       output.complete(time_in_seconds)
 
-      nil
+      return_value
     end
   end
 end

@@ -7,6 +7,8 @@
 # LICENSE file in the root directory of this source tree.
 #
 
+require_relative 'written_file'
+
 module Burner
   # The input for all Job#perform methods.  The main notion of this object is its "value"
   # attribute.  This is dynamic and weak on purpose and is subject to whatever the Job#perform
@@ -16,11 +18,16 @@ module Burner
   class Payload
     attr_accessor :value
 
-    attr_reader :context
+    attr_reader :context, :written_files
 
-    def initialize(context: {}, value: nil)
-      @context = context || {}
-      @value   = value
+    def initialize(context: {}, value: nil, written_files: [])
+      @context       = context || {}
+      @value         = value
+      @written_files = written_files || []
+    end
+
+    def add_written_file(written_file)
+      tap { written_files << WrittenFile.make(written_file) }
     end
   end
 end

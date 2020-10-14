@@ -42,7 +42,14 @@ module Burner
       output.ruler
 
       time_in_seconds = Benchmark.measure do
-        steps.each { |step| step.perform(output, payload, params) }
+        steps.each do |step|
+          return_value = step.perform(output, payload, params)
+
+          if return_value.is_a?(FalseClass)
+            output.detail('Job returned false, ending pipeline.')
+            break
+          end
+        end
       end.real.round(3)
 
       output.ruler

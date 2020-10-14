@@ -14,6 +14,16 @@ module Burner
     module IO
       # Read value from disk.
       class Read < Base
+        attr_reader :binary
+
+        def initialize(name:, path:, binary: false)
+          super(name: name, path: path)
+
+          @binary = binary || false
+
+          freeze
+        end
+
         def perform(output, payload, params)
           compiled_path = compile_path(params)
 

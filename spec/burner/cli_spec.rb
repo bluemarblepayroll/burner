@@ -27,11 +27,11 @@ describe Burner::Cli do
     end
   end
 
-  describe '#execute' do
-    it 'calls Pipeline#execute' do
+  describe '#invoke' do
+    it 'calls Pipeline#invoke' do
       expect(subject.pipeline).to receive(:execute).with(params: subject.params)
 
-      subject.execute
+      subject.invoke
     end
   end
 end

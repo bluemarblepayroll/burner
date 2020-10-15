@@ -29,19 +29,20 @@ describe Burner::Cli do
 
   describe '#execute' do
     it 'calls Pipeline#execute' do
-      output  = Burner::Output.new
-      payload = Burner::Payload.new
-      params  = subject.params
+      argument_params = { 'param3' => 'ghi' }
+      output          = Burner::Output.new
+      payload         = Burner::Payload.new
+      params          = subject.params
 
-      args = {
+      expected_args = {
         output: output,
-        params: params,
+        params: params.merge(argument_params),
         payload: payload
       }
 
-      expect(subject.pipeline).to receive(:execute).with(args)
+      expect(subject.pipeline).to receive(:execute).with(expected_args)
 
-      subject.execute(args)
+      subject.execute(output: output, params: argument_params, payload: payload)
     end
   end
 end

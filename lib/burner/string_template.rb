@@ -9,10 +9,11 @@
 
 module Burner
   # Can take in a string and an object and use the object for formatting string interpolations
-  # using tokens of form: {attribute_name}.  It can also understand dot-notation for nested
-  # objects using the Objectable library.  Another benefit of using Objectable for resolution
-  # is that it can understand almost any type of object: Hash, Struct, OpenStruct, custom
-  # objects, etc.  For more information see underlying libraries:
+  # using tokens of form: {attribute_name}.  This templating class does not understand nested
+  # structures, so input should be a flat object/hash in the form of key-value pairs.  A benefit of
+  # using Objectable for resolution is that it can understand almost any type of
+  # object: Hash, Struct, OpenStruct, custom objects, etc.
+  # For more information see underlying libraries:
   #   * Stringento: https://github.com/bluemarblepayroll/stringento
   #   * Objectable: https://github.com/bluemarblepayroll/objectable
   class StringTemplate
@@ -21,7 +22,7 @@ module Burner
     attr_reader :resolver
 
     def initialize
-      @resolver = Objectable.resolver
+      @resolver = Objectable.resolver(separator: '')
 
       freeze
     end

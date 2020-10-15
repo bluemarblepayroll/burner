@@ -12,7 +12,11 @@ require_relative 'pipeline'
 module Burner
   # Process a single string as a Pipeline.  This is mainly to back the command-line interface.
   class Cli
+    extend Forwardable
+
     attr_reader :params, :pipeline
+
+    def_delegators :pipeline, :execute
 
     def initialize(args)
       path       = args.first
@@ -20,10 +24,6 @@ module Burner
       config     = read_yaml(path)
       @pipeline  = Burner::Pipeline.make(jobs: config['jobs'], steps: config['steps'])
       @params    = (config['params'] || {}).merge(cli_params)
-    end
-
-    def invoke
-      pipeline.execute(params: params)
     end
 
     private

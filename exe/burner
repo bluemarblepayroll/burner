@@ -18,4 +18,4 @@ if ARGV.empty?
 end
 
 # This should return exit code of 1 if it raises any hard errors.
-Burner::Cli.new(ARGV).invoke
+Burner::Cli.new(ARGV).execute

@@ -35,7 +35,7 @@ module Burner
     end
 
     # The main entry-point for kicking off a pipeline.
-    def execute(params: {}, output: Output.new, payload: Payload.new)
+    def execute(output: Output.new, params: {}, payload: Payload.new)
       output.write("Pipeline started with #{steps.length} step(s)")
 
       output_params(params, output)

@@ -9,6 +9,7 @@
 
 require 'acts_as_hashable'
 require 'benchmark'
+require 'forwardable'
 require 'json'
 require 'objectable'
 require 'securerandom'

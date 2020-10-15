@@ -27,11 +27,21 @@ describe Burner::Cli do
     end
   end
 
-  describe '#invoke' do
-    it 'calls Pipeline#invoke' do
-      expect(subject.pipeline).to receive(:execute).with(params: subject.params)
+  describe '#execute' do
+    it 'calls Pipeline#execute' do
+      output  = Burner::Output.new
+      payload = Burner::Payload.new
+      params  = subject.params
 
-      subject.invoke
+      args = {
+        output: output,
+        params: params,
+        payload: payload
+      }
+
+      expect(subject.pipeline).to receive(:execute).with(args)
+
+      subject.execute(args)
     end
   end
 end

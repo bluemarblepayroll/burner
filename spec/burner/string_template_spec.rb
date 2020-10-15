@@ -21,14 +21,5 @@ describe Burner::StringTemplate do
 
       expect(actual).to eq(expected)
     end
-
-    it 'formats with a nested hash using dot-notation' do
-      expression = 'My first name is {name.first}.'
-      input      = { name: { first: 'Jolly' } }
-      actual     = subject.evaluate(expression, input)
-      expected   = 'My first name is Jolly.'
-
-      expect(actual).to eq(expected)
-    end
   end
 end

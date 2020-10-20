@@ -17,17 +17,36 @@ describe Burner::Jobs::Collection::ObjectsToArrays do
     ]
   end
 
-  let(:objects) do
+  let(:flat_objects) do
     [
       {
-        'first' => 'captain',
+        'name.first' => 'captain',
         'id' => '1',
-        'last' => 'kangaroo'
+        'name.last' => 'kangaroo'
       },
       {
-        'first' => 'twisted',
+        'name.first' => 'twisted',
         'id' => '2',
-        'last' => 'sister'
+        'name.last' => 'sister'
+      }
+    ]
+  end
+
+  let(:nested_objects) do
+    [
+      {
+        'name' => {
+          'first' => 'captain',
+          'last' => 'kangaroo'
+        },
+        'id' => '1'
+      },
+      {
+        'name' => {
+          'first' => 'twisted',
+          'last' => 'sister'
+        },
+        'id' => '2'
       }
     ]
   end
@@ -35,23 +54,38 @@ describe Burner::Jobs::Collection::ObjectsToArrays do
   let(:mappings) do
     [
       { index: 0, key: 'id' },
-      { index: 1, key: 'first' },
-      { index: 2, key: 'last' }
+      { index: 1, key: 'name.first' },
+      { index: 2, key: 'name.last' }
     ]
   end
 
   let(:params)     { {} }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
-  let(:payload) { Burner::Payload.new(value: objects) }
 
-  subject { described_class.make(name: 'test', mappings: mappings) }
+  subject { described_class.make(name: 'test', mappings: mappings, separator: separator) }
 
   describe '#perform' do
-    it 'returns mapped array' do
-      subject.perform(output, payload, params)
+    context 'when separator is empty' do
+      let(:separator) { '' }
+      let(:payload)   { Burner::Payload.new(value: flat_objects) }
 
-      expect(payload.value).to eq(arrays)
+      it 'returns mapped array' do
+        subject.perform(output, payload, params)
+
+        expect(payload.value).to eq(arrays)
+      end
+    end
+
+    context 'when separator is not empty' do
+      let(:separator) { '.' }
+      let(:payload)   { Burner::Payload.new(value: nested_objects) }
+
+      it 'returns mapped array' do
+        subject.perform(output, payload, params)
+
+        expect(payload.value).to eq(arrays)
+      end
     end
   end
 end

@@ -19,7 +19,7 @@ describe Burner::Jobs::Deserialize::Yaml do
   subject { described_class.make(name: 'test') }
 
   describe '#perform' do
-    it 'serializes and sets value' do
+    it 'de-serializes and sets value' do
       subject.perform(output, payload, params)
 
       expected = { 'name' => 'Captain Jack Sparrow' }

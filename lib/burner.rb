@@ -9,6 +9,7 @@
 
 require 'acts_as_hashable'
 require 'benchmark'
+require 'csv'
 require 'forwardable'
 require 'json'
 require 'objectable'
@@ -17,4 +18,8 @@ require 'singleton'
 require 'stringento'
 require 'yaml'
 
+# Common/Shared
+require_relative 'burner/modeling'
+
+# Main Entrypoint(s)
 require_relative 'burner/cli'

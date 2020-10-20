@@ -29,7 +29,7 @@ module Burner
           freeze
         end
 
-        def perform(output, payload, _params)
+        def perform(output, payload)
           output.detail("Shifting #{amount} entries.")
 
           payload.value ||= []

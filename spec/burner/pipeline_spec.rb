@@ -11,7 +11,7 @@ require 'csv'
 require 'spec_helper'
 
 class ParseCsv < Burner::Job
-  def perform(_output, payload, _params)
+  def perform(_output, payload)
     payload.value = CSV.parse(payload.value, headers: true).map(&:to_h)
 
     nil
@@ -23,7 +23,7 @@ describe Burner::Pipeline do
   let(:params)     { { name: 'Funky' } }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
-  let(:payload)    { Burner::Payload.new }
+  let(:payload)    { Burner::Payload.new(params: params) }
 
   let(:jobs) do
     [
@@ -59,7 +59,7 @@ describe Burner::Pipeline do
 
   describe '#execute' do
     it 'execute all steps' do
-      subject.execute(output: output, params: params, payload: payload)
+      subject.execute(output: output, payload: payload)
 
       expect(string_out.read).to include('::nothing1')
       expect(string_out.read).to include('::nothing2')
@@ -67,13 +67,13 @@ describe Burner::Pipeline do
     end
 
     it 'outputs params' do
-      subject.execute(output: output, params: params, payload: payload)
+      subject.execute(output: output, payload: payload)
 
       expect(string_out.read).to include('Parameters:')
     end
 
     it 'does not output params' do
-      subject.execute(output: output, params: {}, payload: payload)
+      subject.execute(output: output)
 
       expect(string_out.read).not_to include('Parameters:')
       expect(string_out.read).to     include('No parameters passed in.')
@@ -94,7 +94,7 @@ describe Burner::Pipeline do
         steps: %i[nothing1 check nothing2]
       }
 
-      Burner::Pipeline.make(pipeline).execute(output: output, params: params)
+      Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
 
       expect(string_out.read).not_to include('nothing2')
       expect(string_out.read).to     include('Job returned false, ending pipeline.')
@@ -150,7 +150,9 @@ describe Burner::Pipeline do
         output_file: File.join(TEMP_DIR, "#{SecureRandom.uuid}.yaml")
       }
 
-      Burner::Pipeline.make(pipeline).execute(output: output, params: params)
+      payload = Burner::Payload.new(params: params)
+
+      Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
 
       actual = File.open(params[:output_file], 'r', &:read)
 
@@ -205,7 +207,9 @@ describe Burner::Pipeline do
         output_file: File.join(TEMP_DIR, "#{SecureRandom.uuid}.yaml")
       }
 
-      Burner::Pipeline.make(pipeline).execute(output: output, params: params)
+      payload = Burner::Payload.new(params: params)
+
+      Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
 
       actual = File.open(params[:output_file], 'r', &:read)
 

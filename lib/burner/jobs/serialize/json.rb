@@ -12,7 +12,7 @@ module Burner
     module Serialize
       # Treat value like a Ruby object and serialize it using JSON.
       class Json < Job
-        def perform(_output, payload, _params)
+        def perform(_output, payload)
           payload.value = payload.value.to_json
 
           nil

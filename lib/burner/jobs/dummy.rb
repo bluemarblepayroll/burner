@@ -11,7 +11,7 @@ module Burner
   class Jobs
     # Do nothing.
     class Dummy < Job
-      def perform(_output, _payload, _params)
+      def perform(_output, _payload)
         nil
       end
     end

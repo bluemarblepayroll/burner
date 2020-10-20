@@ -11,7 +11,6 @@ require 'spec_helper'
 
 describe Burner::Jobs::Set do
   let(:value)      { 'Some Random Value' }
-  let(:params)     { {} }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:payload)    { Burner::Payload.new }
@@ -20,7 +19,7 @@ describe Burner::Jobs::Set do
 
   describe '#perform' do
     it 'sets value' do
-      subject.perform(output, payload, params)
+      subject.perform(output, payload)
 
       expect(payload.value).to include(value)
     end

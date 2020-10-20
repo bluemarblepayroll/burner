@@ -28,8 +28,10 @@ module Burner
 
     private
 
-    def eval_string_template(expression, input)
-      string_template.evaluate(expression, input)
+    def job_string_template(expression, output, payload)
+      templatable_params = payload.params.merge(__id: output.id, __value: payload.value)
+
+      string_template.evaluate(expression, templatable_params)
     end
   end
 end

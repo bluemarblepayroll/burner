@@ -25,8 +25,8 @@ module Burner
           freeze
         end
 
-        def perform(output, _payload, params)
-          compiled_path = compile_path(params)
+        def perform(output, payload)
+          compiled_path = job_string_template(path, output, payload)
 
           exists = File.exist?(compiled_path)
           verb   = exists ? 'does' : 'does not'

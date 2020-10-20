@@ -11,7 +11,6 @@ require 'spec_helper'
 
 describe Burner::Jobs::Sleep do
   let(:seconds)    { 0.2 }
-  let(:params)     { {} }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:payload)    { Burner::Payload.new }
@@ -22,7 +21,7 @@ describe Burner::Jobs::Sleep do
     it 'calls Kernel#sleep' do
       expect(Kernel).to receive(:sleep).with(seconds)
 
-      subject.perform(output, payload, params)
+      subject.perform(output, payload)
     end
   end
 end

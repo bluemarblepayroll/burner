@@ -18,10 +18,18 @@ module Burner
   class Payload
     attr_accessor :value
 
-    attr_reader :context, :written_files
+    attr_reader :params,
+                :time,
+                :written_files
 
-    def initialize(context: {}, value: nil, written_files: [])
-      @context       = context || {}
+    def initialize(
+      params: {},
+      time: Time.now.utc,
+      value: nil,
+      written_files: []
+    )
+      @params        = params || {}
+      @time          = time || Time.now.utc
       @value         = value
       @written_files = written_files || []
     end

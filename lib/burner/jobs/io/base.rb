@@ -21,12 +21,6 @@ module Burner
 
           @path = path.to_s
         end
-
-        private
-
-        def compile_path(params)
-          eval_string_template(path, params)
-        end
       end
     end
   end

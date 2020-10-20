@@ -17,7 +17,7 @@ describe Burner::Jobs::Dummy do
       value   = 123
       payload = Burner::Payload.new(value: value)
 
-      subject.perform(nil, payload, nil)
+      subject.perform(nil, payload)
 
       expect(payload.value).to eq(value)
     end

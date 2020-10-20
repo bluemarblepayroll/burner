@@ -17,7 +17,7 @@ module Burner
         # This currently only supports returning an array of arrays, including the header row.
         # In the future this could be extended to offer more customizable options, such as
         # making it return an array of hashes with the columns mapped, etc.)
-        def perform(_output, payload, _params)
+        def perform(_output, payload)
           payload.value = CSV.new(payload.value, headers: false).to_a
 
           nil

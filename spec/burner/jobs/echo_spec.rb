@@ -14,12 +14,13 @@ describe Burner::Jobs::Echo do
   let(:params)     { { name: 'McBoaty' } }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:payload)    { Burner::Payload.new(params: params) }
 
   subject { described_class.make(name: 'test', message: message) }
 
   describe '#perform' do
     it 'outputs templated message' do
-      subject.perform(output, nil, params)
+      subject.perform(output, payload)
 
       expect(string_out.read).to include('Hello, McBoaty!')
     end

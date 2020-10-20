@@ -28,15 +28,13 @@ module Burner
       freeze
     end
 
-    def perform(output, payload, params)
+    def perform(output, payload)
       return_value = nil
 
       output.title("#{job.class.name}#{SEPARATOR}#{job.name}")
 
       time_in_seconds = Benchmark.measure do
-        job_params = (params || {}).merge(__id: output.id, __value: payload.value)
-
-        return_value = job.perform(output, payload, job_params)
+        return_value = job.perform(output, payload)
       end.real.round(3)
 
       output.complete(time_in_seconds)

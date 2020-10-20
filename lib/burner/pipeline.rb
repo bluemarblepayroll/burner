@@ -35,15 +35,15 @@ module Burner
     end
 
     # The main entry-point for kicking off a pipeline.
-    def execute(output: Output.new, params: {}, payload: Payload.new)
+    def execute(output: Output.new, payload: Payload.new)
       output.write("Pipeline started with #{steps.length} step(s)")
 
-      output_params(params, output)
+      output_params(payload.params, output)
       output.ruler
 
       time_in_seconds = Benchmark.measure do
         steps.each do |step|
-          return_value = step.perform(output, payload, params)
+          return_value = step.perform(output, payload)
 
           if return_value.is_a?(FalseClass)
             output.detail('Job returned false, ending pipeline.')

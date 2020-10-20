@@ -24,7 +24,7 @@ module Burner
           freeze
         end
 
-        def perform(_output, payload, _params)
+        def perform(_output, payload)
           payload.value = (payload.value || []).map { |array| index_to_key_map(array) }
 
           nil

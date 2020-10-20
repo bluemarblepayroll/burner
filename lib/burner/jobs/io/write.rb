@@ -24,8 +24,8 @@ module Burner
           freeze
         end
 
-        def perform(output, payload, params)
-          compiled_path = compile_path(params)
+        def perform(output, payload)
+          compiled_path = job_string_template(path, output, payload)
 
           ensure_directory_exists(output, compiled_path)
 

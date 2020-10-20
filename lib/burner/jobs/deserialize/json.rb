@@ -12,7 +12,7 @@ module Burner
     module Deserialize
       # Take a JSON string and deserialize into object(s).
       class Json < Job
-        def perform(_output, payload, _params)
+        def perform(_output, payload)
           payload.value = JSON.parse(payload.value)
 
           nil

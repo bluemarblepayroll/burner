@@ -16,6 +16,7 @@ require 'objectable'
 require 'securerandom'
 require 'singleton'
 require 'stringento'
+require 'time'
 require 'yaml'
 
 # Common/Shared

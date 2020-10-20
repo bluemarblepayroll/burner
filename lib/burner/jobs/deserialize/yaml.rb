@@ -27,7 +27,7 @@ module Burner
         # in a sandbox.  By default, though, we will try and drive them towards using it
         # in the safer alternative.
         # rubocop:disable Security/YAMLLoad
-        def perform(output, payload, _params)
+        def perform(output, payload)
           output.detail('Warning: loading YAML not using safe_load.') unless safe
 
           payload.value = safe ? YAML.safe_load(payload.value) : YAML.load(payload.value)

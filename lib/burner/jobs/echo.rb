@@ -21,8 +21,8 @@ module Burner
         freeze
       end
 
-      def perform(output, _payload, params)
-        compiled_message = eval_string_template(message, params)
+      def perform(output, payload)
+        compiled_message = job_string_template(message, output, payload)
 
         output.detail(compiled_message)
 

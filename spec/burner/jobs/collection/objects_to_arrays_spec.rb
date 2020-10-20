@@ -59,7 +59,6 @@ describe Burner::Jobs::Collection::ObjectsToArrays do
     ]
   end
 
-  let(:params)     { {} }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
 
@@ -71,7 +70,7 @@ describe Burner::Jobs::Collection::ObjectsToArrays do
       let(:payload)   { Burner::Payload.new(value: flat_objects) }
 
       it 'returns mapped array' do
-        subject.perform(output, payload, params)
+        subject.perform(output, payload)
 
         expect(payload.value).to eq(arrays)
       end
@@ -82,7 +81,7 @@ describe Burner::Jobs::Collection::ObjectsToArrays do
       let(:payload)   { Burner::Payload.new(value: nested_objects) }
 
       it 'returns mapped array' do
-        subject.perform(output, payload, params)
+        subject.perform(output, payload)
 
         expect(payload.value).to eq(arrays)
       end

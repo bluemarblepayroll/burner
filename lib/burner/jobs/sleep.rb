@@ -21,7 +21,7 @@ module Burner
         freeze
       end
 
-      def perform(output, _payload, _params)
+      def perform(output, _payload)
         output.detail("Going to sleep for #{seconds} second(s)")
 
         Kernel.sleep(seconds)

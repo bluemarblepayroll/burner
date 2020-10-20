@@ -15,13 +15,13 @@ describe Burner::Jobs::IO::Write do
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:value)      { 'I should be written to disk.' }
-  let(:payload)    { Burner::Payload.new(value: value) }
+  let(:payload)    { Burner::Payload.new(params: params, value: value) }
 
   subject { described_class.make(name: 'test', path: '{path}') }
 
   describe '#perform' do
     before(:each) do
-      subject.perform(output, payload, params)
+      subject.perform(output, payload)
     end
 
     it "writes payload's value to file" do

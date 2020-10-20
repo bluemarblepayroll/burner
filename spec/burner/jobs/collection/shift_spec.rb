@@ -11,7 +11,6 @@ require 'spec_helper'
 
 describe Burner::Jobs::Collection::Shift do
   let(:value)      { %w[a b c] }
-  let(:params)     { {} }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:payload)    { Burner::Payload.new(value: value) }
@@ -23,7 +22,7 @@ describe Burner::Jobs::Collection::Shift do
       let(:amount) { 1 }
 
       it 'skips entries' do
-        subject.perform(output, payload, params)
+        subject.perform(output, payload)
 
         expected = %w[b c]
 
@@ -35,7 +34,7 @@ describe Burner::Jobs::Collection::Shift do
       let(:amount) { 2 }
 
       it 'skips entries' do
-        subject.perform(output, payload, params)
+        subject.perform(output, payload)
 
         expected = %w[c]
 
@@ -47,7 +46,7 @@ describe Burner::Jobs::Collection::Shift do
       let(:amount) { 3 }
 
       it 'skips entries' do
-        subject.perform(output, payload, params)
+        subject.perform(output, payload)
 
         expected = []
 

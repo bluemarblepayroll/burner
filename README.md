@@ -73,19 +73,21 @@ params = {
   input_file: 'input.json',
   output_file: 'output.yaml'
 }
+
+payload = Burner::Payload.new(params: params)
 ````
 
 Assuming we are running this script from a directory where an `input.json` file exists, we can then programatically process the pipeline:
 
 ````ruby
-Burner::Pipeline.make(pipeline).execute(params: params)
+Burner::Pipeline.make(pipeline).execute(payload: payload)
 ````
 
 We should now see a output.yaml file created.
 
 Some notes:
 
-* Some values are able to be string-interpolated using the provided params.  This allows for the passing runtime configuration/data into pipelines/jobs.
+* Some values are able to be string-interpolated using the provided Payload#params.  This allows for the passing runtime configuration/data into pipelines/jobs.
 * The job's ID can be accessed using the `__id` key.
 * The current job's payload value can be accessed using the `__value` key.
 * Jobs can be re-used (just like the output_id and output_value jobs).
@@ -116,8 +118,9 @@ end
 
 string_out = StringOut.new
 output     = Burner::Output.new(outs: string_out)
+payload    = Burner::Payload.new(params: params)
 
-Burner::Pipeline.make(pipeline).execute(output: output, params: params)
+Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
 
 log = string_out.read
 ````
@@ -242,9 +245,9 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 
 #### IO
 
-* **io/exist** [path, short_circuit]: Check to see if a file exists. The path parameter can be interpolated using params.  If short_circuit was set to true (defaults to false) and the file does not exist then the pipeline will be short-circuited.
-* **io/read** [binary, path]: Read in a local file.  The path parameter can be interpolated using params.  If the contents are binary, pass in `binary: true` to open it up in binary+read mode.
-* **io/write** [binary, path]: Write to a local file.  The path parameter can be interpolated using params.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.
+* **io/exist** [path, short_circuit]: Check to see if a file exists. The path parameter can be interpolated using `Payload#params`.  If short_circuit was set to true (defaults to false) and the file does not exist then the pipeline will be short-circuited.
+* **io/read** [binary, path]: Read in a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+read mode.
+* **io/write** [binary, path]: Write to a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.
 
 #### Serialization
 
@@ -255,7 +258,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 #### General
 
 * **dummy** []: Do nothing
-* **echo** [message]: Write a message to the output.  The message parameter can be interpolated using params.
+* **echo** [message]: Write a message to the output.  The message parameter can be interpolated using  `Payload#params`.
 * **set** [value]: Set the value to any arbitrary value.
 * **sleep** [seconds]: Sleep the thread for X number of seconds.
 
@@ -268,7 +271,7 @@ Let's say we would like to register a job to parse a CSV:
 
 ````ruby
 class ParseCsv < Burner::Job
-  def perform(output, payload, params)
+  def perform(output, payload)
     payload.value = CSV.parse(payload.value, headers: true).map(&:to_h)
 
     nil
@@ -328,7 +331,9 @@ params = {
   output_file: File.join(TEMP_DIR, "#{SecureRandom.uuid}.yaml")
 }
 
-Burner::Pipeline.make(pipeline).execute(output: output, params: params)
+payload = Burner::Payload.new(params: params)
+
+Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
 ````
 
 ## Contributing

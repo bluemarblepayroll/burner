@@ -13,7 +13,8 @@ require_relative 'transform/attribute_renderer'
 module Burner
   class Jobs
     module Collection
-      # Iterate over all objects and return a new set of transformed objects.
+      # Iterate over all objects and return a new set of transformed objects.  Under the hood
+      # this uses the Realize library: https://github.com/bluemarblepayroll/realize
       # Expected Payload#value input: array of objects.
       # Payload#value output: An array of objects.
       class Transform < Job

@@ -9,9 +9,10 @@
 
 require_relative 'job'
 require_relative 'jobs/collection/arrays_to_objects'
-require_relative 'jobs/collection/transform'
+require_relative 'jobs/collection/graph'
 require_relative 'jobs/collection/objects_to_arrays'
 require_relative 'jobs/collection/shift'
+require_relative 'jobs/collection/transform'
 require_relative 'jobs/deserialize/csv'
 require_relative 'jobs/deserialize/json'
 require_relative 'jobs/deserialize/yaml'
@@ -34,9 +35,10 @@ module Burner
     acts_as_hashable_factory
 
     register 'collection/arrays_to_objects', Collection::ArraysToObjects
+    register 'collection/graph',             Collection::Graph
     register 'collection/objects_to_arrays', Collection::ObjectsToArrays
-    register 'collection/transform',         Collection::Transform
     register 'collection/shift',             Collection::Shift
+    register 'collection/transform',         Collection::Transform
     register 'deserialize/csv',              Deserialize::Csv
     register 'deserialize/json',             Deserialize::Json
     register 'deserialize/yaml',             Deserialize::Yaml

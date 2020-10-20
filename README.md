@@ -239,6 +239,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 * **collection/shift** [amount]: Remove the first N number of elements from an array.
 * **collection/transform** [attributes, exclusive, separator]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.  This job uses (Realize)[https://github.com/bluemarblepayroll/realize], which provides its own extendable value-transformation pipeline.
 * **collection/unpivot** [pivot_set]: Take an array of objects and unpivot specific sets of keys into rows.  Under the hood it uses [HashMath's Unpivot class](https://github.com/bluemarblepayroll/hash_math#unpivot-hash-key-coalescence-and-row-extrapolation).
+* **collection/values** [include_keys]: Take an array of objects and call `#values` on each object. If include_keys is true (it is false by default), then call `#keys` on the first object and inject that as a "header" object.
 
 #### De-serialization
 

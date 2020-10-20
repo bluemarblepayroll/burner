@@ -228,15 +228,34 @@ Burner::Cli.new(args).invoke
 
 This library only ships with very basic, rudimentary jobs that are meant to just serve as a baseline:
 
+#### Collection
+
+* **collection/arrays_to_objects** [mappings]: Convert an array of arrays to an array of objects.
+* **collection/objects_to_arrays** [mappings]: Convert an array of objects to an array of arrays.
+* **collection/shift** [amount]: Remove the first N number of elements from an array.
+
+#### De-serialization
+
+* **deserialize/csv** []: Take a CSV string and de-serialize into object(s).  Currently it will return an array of arrays, with each nested array representing one row.
 * **deserialize/json** []: Treat input as a string and de-serialize it to JSON.
 * **deserialize/yaml** [safe]: Treat input as a string and de-serialize it to YAML.  By default it will try and (safely de-serialize)[https://ruby-doc.org/stdlib-2.6.1/libdoc/psych/rdoc/Psych.html#method-c-safe_load] it (only using core classes).  If you wish to de-serialize it to any class type, pass in `safe: false`
-* **dummy** []: Do nothing
-* **echo** [message]: Write a message to the output.  The message parameter can be interpolated using params.
+
+#### IO
+
 * **io/exist** [path, short_circuit]: Check to see if a file exists. The path parameter can be interpolated using params.  If short_circuit was set to true (defaults to false) and the file does not exist then the pipeline will be short-circuited.
 * **io/read** [binary, path]: Read in a local file.  The path parameter can be interpolated using params.  If the contents are binary, pass in `binary: true` to open it up in binary+read mode.
 * **io/write** [binary, path]: Write to a local file.  The path parameter can be interpolated using params.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.
+
+#### Serialization
+
+* **serialize/csv** []: Take an array of arrays and create a CSV.
 * **serialize/json** []: Convert value to JSON.
 * **serialize/yaml** []: Convert value to YAML.
+
+#### General
+
+* **dummy** []: Do nothing
+* **echo** [message]: Write a message to the output.  The message parameter can be interpolated using params.
 * **set** [value]: Set the value to any arbitrary value.
 * **sleep** [seconds]: Sleep the thread for X number of seconds.
 

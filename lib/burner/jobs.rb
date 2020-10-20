@@ -9,6 +9,7 @@
 
 require_relative 'job'
 require_relative 'jobs/collection/arrays_to_objects'
+require_relative 'jobs/collection/transform'
 require_relative 'jobs/collection/objects_to_arrays'
 require_relative 'jobs/collection/shift'
 require_relative 'jobs/deserialize/csv'
@@ -34,6 +35,7 @@ module Burner
 
     register 'collection/arrays_to_objects', Collection::ArraysToObjects
     register 'collection/objects_to_arrays', Collection::ObjectsToArrays
+    register 'collection/transform',         Collection::Transform
     register 'collection/shift',             Collection::Shift
     register 'deserialize/csv',              Deserialize::Csv
     register 'deserialize/json',             Deserialize::Json

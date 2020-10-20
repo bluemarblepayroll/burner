@@ -236,6 +236,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 * **collection/arrays_to_objects** [mappings]: Convert an array of arrays to an array of objects.
 * **collection/objects_to_arrays** [mappings]: Convert an array of objects to an array of arrays.
 * **collection/shift** [amount]: Remove the first N number of elements from an array.
+* **collection/transform** [attributes, exclusive, separator]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.
 
 #### De-serialization
 

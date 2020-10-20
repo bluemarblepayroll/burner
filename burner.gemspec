@@ -29,7 +29,9 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.5'
 
   s.add_dependency('acts_as_hashable', '~>1.2')
+  s.add_dependency('hashematics', '~>1.1')
   s.add_dependency('objectable', '~>1.0')
+  s.add_dependency('realize', '~>1.2')
   s.add_dependency('stringento', '~>2.1')
 
   s.add_development_dependency('guard-rspec', '~>4.7')

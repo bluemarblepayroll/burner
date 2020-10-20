@@ -17,7 +17,7 @@ module Burner
       class Graph < Job
         attr_reader :key, :groups
 
-        def initialize(name:, key:, config: {})
+        def initialize(name:, key:, config: Hashematics::Configuration.new)
           super(name: name)
 
           raise ArgumentError, 'key is required' if key.to_s.empty?

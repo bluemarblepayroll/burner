@@ -13,6 +13,7 @@ require_relative 'jobs/collection/graph'
 require_relative 'jobs/collection/objects_to_arrays'
 require_relative 'jobs/collection/shift'
 require_relative 'jobs/collection/transform'
+require_relative 'jobs/collection/unpivot'
 require_relative 'jobs/deserialize/csv'
 require_relative 'jobs/deserialize/json'
 require_relative 'jobs/deserialize/yaml'
@@ -39,6 +40,7 @@ module Burner
     register 'collection/objects_to_arrays', Collection::ObjectsToArrays
     register 'collection/shift',             Collection::Shift
     register 'collection/transform',         Collection::Transform
+    register 'collection/unpivot',           Collection::Unpivot
     register 'deserialize/csv',              Deserialize::Csv
     register 'deserialize/json',             Deserialize::Json
     register 'deserialize/yaml',             Deserialize::Yaml

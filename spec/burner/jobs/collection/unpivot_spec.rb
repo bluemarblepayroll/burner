@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Collection::Unpivot do
+describe Burner::Library::Collection::Unpivot do
   let(:patients) do
     [
       {

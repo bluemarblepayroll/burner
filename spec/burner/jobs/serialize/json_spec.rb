@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Serialize::Json do
+describe Burner::Library::Serialize::Json do
   let(:value)      { { name: 'Captain Jack Sparrow' } }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }

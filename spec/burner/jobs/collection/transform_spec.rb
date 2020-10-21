@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Collection::Transform do
+describe Burner::Library::Collection::Transform do
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:payload)    { Burner::Payload.new(value: value) }

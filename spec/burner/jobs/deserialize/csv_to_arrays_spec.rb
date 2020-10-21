@@ -9,11 +9,12 @@
 
 require 'spec_helper'
 
-describe Burner::Library::Deserialize::Json do
-  let(:value)      { '{"name":"Captain Jack Sparrow"}' }
+describe Burner::Library::Deserialize::CsvToArrays do
+  let(:value)      { "id,first,last\n1,captain,kangaroo\n2,twisted,sister\n" }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:payload)    { Burner::Payload.new(value: value) }
+  let(:skip_first) { 0 }
 
   subject { described_class.make(name: 'test') }
 
@@ -21,7 +22,11 @@ describe Burner::Library::Deserialize::Json do
     it 'de-serializes and sets value' do
       subject.perform(output, payload)
 
-      expected = { 'name' => 'Captain Jack Sparrow' }
+      expected = [
+        %w[id first last],
+        %w[1 captain kangaroo],
+        %w[2 twisted sister]
+      ]
 
       expect(payload.value).to eq(expected)
     end

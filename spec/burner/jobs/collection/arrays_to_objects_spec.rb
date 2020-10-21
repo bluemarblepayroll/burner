@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Collection::ArraysToObjects do
+describe Burner::Library::Collection::ArraysToObjects do
   let(:arrays) do
     [
       %w[1 captain kangaroo],

@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Echo do
+describe Burner::Library::Echo do
   let(:message)    { 'Hello, {name}!' }
   let(:params)     { { name: 'McBoaty' } }
   let(:string_out) { StringOut.new }

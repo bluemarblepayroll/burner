@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Collection::Values do
+describe Burner::Library::Collection::Values do
   let(:objects) do
     [
       {

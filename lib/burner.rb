@@ -24,6 +24,7 @@ require 'yaml'
 
 # Common/Shared
 require_relative 'burner/modeling'
+require_relative 'burner/util'
 
 # Main Entrypoint(s)
 require_relative 'burner/cli'

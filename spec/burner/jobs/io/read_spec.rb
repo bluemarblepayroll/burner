@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::IO::Read do
+describe Burner::Library::IO::Read do
   let(:path)       { File.join('spec', 'fixtures', 'basic.txt') }
   let(:params)     { { path: path } }
   let(:string_out) { StringOut.new }

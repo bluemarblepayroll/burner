@@ -19,11 +19,16 @@ module Burner
     acts_as_hashable
 
     class JobNotFoundError < StandardError; end
+    class DuplicateJobNameError < StandardError; end
 
     attr_reader :steps
 
     def initialize(jobs: [], steps: [])
-      jobs_by_name = Jobs.array(jobs).map { |job| [job.name, job] }.to_h
+      jobs = Jobs.array(jobs)
+
+      assert_unique_job_names(jobs)
+
+      jobs_by_name = jobs.map { |job| [job.name, job] }.to_h
 
       @steps = Array(steps).map do |step_name|
         job = jobs_by_name[step_name.to_s]
@@ -59,6 +64,20 @@ module Burner
     end
 
     private
+
+    def assert_unique_job_names(jobs)
+      unique_job_names = Set.new
+
+      jobs.each do |job|
+        if unique_job_names.include?(job.name)
+          raise DuplicateJobNameError, "job with name: #{job.name} already declared"
+        end
+
+        unique_job_names << job.name
+      end
+
+      nil
+    end
 
     def output_params(params, output)
       if params.keys.any?

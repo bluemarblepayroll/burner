@@ -20,6 +20,8 @@ module Burner
       config    = read_yaml(path)
       @pipeline = Burner::Pipeline.make(jobs: config['jobs'], steps: config['steps'])
       @payload  = Payload.new(params: params)
+
+      freeze
     end
 
     def execute

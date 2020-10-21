@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Sleep do
+describe Burner::Library::Sleep do
   let(:seconds)    { 0.2 }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }

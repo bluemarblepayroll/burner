@@ -133,23 +133,23 @@ The value of `log` should now look similar to:
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - input_file: input.json
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - output_file: output.yaml
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] --------------------------------------------------------------------------------
-[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [1] Burner::Jobs::IO::Read::read
+[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [1] Burner::Library::IO::Read::read
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - Reading: spec/fixtures/input.json
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - Completed in: 0.0 second(s)
-[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [2] Burner::Jobs::Echo::output_id
+[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [2] Burner::Library::Echo::output_id
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - The job id is:
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - Completed in: 0.0 second(s)
-[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [3] Burner::Jobs::Echo::output_value
+[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [3] Burner::Library::Echo::output_value
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - The current value is:
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - Completed in: 0.0 second(s)
-[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [4] Burner::Jobs::Deserialize::Json::parse
+[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [4] Burner::Library::Deserialize::Json::parse
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - Completed in: 0.0 second(s)
-[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [5] Burner::Jobs::Serialize::Yaml::convert
+[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [5] Burner::Library::Serialize::Yaml::convert
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - Completed in: 0.0 second(s)
-[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [6] Burner::Jobs::Echo::output_value
+[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [6] Burner::Library::Echo::output_value
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - The current value is:
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - Completed in: 0.0 second(s)
-[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [7] Burner::Jobs::IO::Write::write
+[8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] [7] Burner::Library::IO::Write::write
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - Writing: output.yaml
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC]   - Completed in: 0.0 second(s)
 [8bdc394e-7047-4a1a-87ed-6c54ed690ed5 | 2020-10-14 13:49:59 UTC] --------------------------------------------------------------------------------
@@ -163,7 +163,7 @@ Notes:
 
 ### Command Line Pipeline Processing
 
-This library also ships with a built-in script `exe/burner` that illustrates using the `Burner::Cli` API.  This class can take in an array of arguments (similar to a command-line) and execute a pipeline.  The first argument is the path to a YAML file with the pipeline's configuration and each subsequent argument is a param in `key=value` form.  Here is how the json-to-yaml example can utilize this interface:
+This library also ships with a built-in script `burner` that illustrates using the `Burner::Cli` API.  This class can take in an array of arguments (similar to a command-line) and execute a pipeline.  The first argument is the path to a YAML file with the pipeline's configuration and each subsequent argument is a param in `key=value` form.  Here is how the json-to-yaml example can utilize this interface:
 
 #### Create YAML Pipeline Configuration File
 
@@ -234,18 +234,18 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 #### Collection
 
 * **collection/arrays_to_objects** [mappings]: Convert an array of arrays to an array of objects.
-* **collection/graph** [config, key]: Use (Hashematics)[https://github.com/bluemarblepayroll/hashematics] to turn a flat array of objects into a deeply nested object tree.
+* **collection/graph** [config, key]: Use [Hashematics](https://github.com/bluemarblepayroll/hashematics) to turn a flat array of objects into a deeply nested object tree.
 * **collection/objects_to_arrays** [mappings]: Convert an array of objects to an array of arrays.
 * **collection/shift** [amount]: Remove the first N number of elements from an array.
-* **collection/transform** [attributes, exclusive, separator]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.  This job uses (Realize)[https://github.com/bluemarblepayroll/realize], which provides its own extendable value-transformation pipeline.
+* **collection/transform** [attributes, exclusive, separator]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.  This job uses [Realize](https://github.com/bluemarblepayroll/realize), which provides its own extendable value-transformation pipeline.
 * **collection/unpivot** [pivot_set]: Take an array of objects and unpivot specific sets of keys into rows.  Under the hood it uses [HashMath's Unpivot class](https://github.com/bluemarblepayroll/hash_math#unpivot-hash-key-coalescence-and-row-extrapolation).
 * **collection/values** [include_keys]: Take an array of objects and call `#values` on each object. If include_keys is true (it is false by default), then call `#keys` on the first object and inject that as a "header" object.
 
 #### De-serialization
 
-* **deserialize/csv** []: Take a CSV string and de-serialize into object(s).  Currently it will return an array of arrays, with each nested array representing one row.
+* **deserialize/csv_to_arrays** []: Take a CSV string and de-serialize into object(s).  Currently it will return an array of arrays, with each nested array representing one row.
 * **deserialize/json** []: Treat input as a string and de-serialize it to JSON.
-* **deserialize/yaml** [safe]: Treat input as a string and de-serialize it to YAML.  By default it will try and (safely de-serialize)[https://ruby-doc.org/stdlib-2.6.1/libdoc/psych/rdoc/Psych.html#method-c-safe_load] it (only using core classes).  If you wish to de-serialize it to any class type, pass in `safe: false`
+* **deserialize/yaml** [safe]: Treat input as a string and de-serialize it to YAML.  By default it will try and [safely de-serialize](https://ruby-doc.org/stdlib-2.6.1/libdoc/psych/rdoc/Psych.html#method-c-safe_load) it (only using core classes).  If you wish to de-serialize it to any class type, pass in `safe: false`
 
 #### IO
 
@@ -255,7 +255,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 
 #### Serialization
 
-* **serialize/csv** []: Take an array of arrays and create a CSV.
+* **serialize/arrays_to_csv** []: Take an array of arrays and create a CSV.
 * **serialize/json** []: Convert value to JSON.
 * **serialize/yaml** []: Convert value to YAML.
 
@@ -269,7 +269,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 
 ### Adding & Registering Jobs
 
-Where this library shines is when additional jobs are plugged in.  Burner uses its `Burner::Jobs` class as its class-level registry built with (acts_as_hashable)[https://github.com/bluemarblepayroll/acts_as_hashable]'s acts_as_hashable_factory directive.
+Where this library shines is when additional jobs are plugged in.  Burner uses its `Burner::Jobs` class as its class-level registry built with [acts_as_hashable](https://github.com/bluemarblepayroll/acts_as_hashable)'s acts_as_hashable_factory directive.
 
 Let's say we would like to register a job to parse a CSV:
 

@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Deserialize::Yaml do
+describe Burner::Library::Deserialize::Yaml do
   let(:value)      { "---\nname: Captain Jack Sparrow\n" }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }

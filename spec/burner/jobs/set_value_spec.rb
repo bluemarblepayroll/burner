@@ -9,21 +9,19 @@
 
 require 'spec_helper'
 
-describe Burner::Library::Deserialize::Json do
-  let(:value)      { '{"name":"Captain Jack Sparrow"}' }
+describe Burner::Library::SetValue do
+  let(:value)      { 'Some Random Value' }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
-  let(:payload)    { Burner::Payload.new(value: value) }
+  let(:payload)    { Burner::Payload.new }
 
-  subject { described_class.make(name: 'test') }
+  subject { described_class.make(name: 'test', value: value) }
 
   describe '#perform' do
-    it 'de-serializes and sets value' do
+    it 'sets value' do
       subject.perform(output, payload)
 
-      expected = { 'name' => 'Captain Jack Sparrow' }
-
-      expect(payload.value).to eq(expected)
+      expect(payload.value).to include(value)
     end
   end
 end

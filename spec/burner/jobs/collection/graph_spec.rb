@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Collection::Graph do
+describe Burner::Library::Collection::Graph do
   let(:denormalized_objects) do
     [
       {

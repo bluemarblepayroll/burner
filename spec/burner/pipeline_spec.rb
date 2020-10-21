@@ -39,6 +39,20 @@ describe Burner::Pipeline do
 
   subject { described_class.make(jobs: jobs, steps: steps) }
 
+  describe '#initialize' do
+    it 'raises a DuplicateJobNameError if jobs have the same name' do
+      jobs = [
+        { name: :nothing1 },
+        { name: :nothing2 },
+        { name: :nothing3 },
+        { name: :nothing3 }
+      ]
+
+      error_constant = Burner::Pipeline::DuplicateJobNameError
+      expect { described_class.make(jobs: jobs) }.to raise_error(error_constant)
+    end
+  end
+
   context 'when a step does not correspond to a job' do
     let(:jobs) do
       [

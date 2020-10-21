@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::Dummy do
+describe Burner::Library::Dummy do
   subject { described_class.make(name: 'test') }
 
   describe '#perform' do

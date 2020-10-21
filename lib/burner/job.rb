@@ -15,23 +15,23 @@ module Burner
   # the Burner::Jobs factory class method #register.  An example of a registration:
   #   Burner::Jobs.register('your_class', YourClass)
   class Job
+    include Util::Arrayable
     acts_as_hashable
 
-    attr_reader :name, :string_template
+    attr_reader :name
 
     def initialize(name:)
       raise ArgumentError, 'name is required' if name.to_s.empty?
 
-      @name            = name.to_s
-      @string_template = StringTemplate.instance
+      @name = name.to_s
     end
 
-    private
+    protected
 
     def job_string_template(expression, output, payload)
       templatable_params = payload.params.merge(__id: output.id, __value: payload.value)
 
-      string_template.evaluate(expression, templatable_params)
+      StringTemplate.instance.evaluate(expression, templatable_params)
     end
   end
 end

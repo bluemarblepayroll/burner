@@ -7,6 +7,13 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'modeling/attribute'
-require_relative 'modeling/attribute_renderer'
-require_relative 'modeling/key_index_mapping'
+module Burner
+  module Library
+    # Do nothing.
+    class Dummy < Job
+      def perform(_output, _payload)
+        nil
+      end
+    end
+  end
+end

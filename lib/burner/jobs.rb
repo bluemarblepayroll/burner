@@ -7,27 +7,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'job'
-require_relative 'jobs/collection/arrays_to_objects'
-require_relative 'jobs/collection/graph'
-require_relative 'jobs/collection/objects_to_arrays'
-require_relative 'jobs/collection/shift'
-require_relative 'jobs/collection/transform'
-require_relative 'jobs/collection/unpivot'
-require_relative 'jobs/collection/values'
-require_relative 'jobs/deserialize/csv'
-require_relative 'jobs/deserialize/json'
-require_relative 'jobs/deserialize/yaml'
-require_relative 'jobs/dummy'
-require_relative 'jobs/echo'
-require_relative 'jobs/io/exist'
-require_relative 'jobs/io/read'
-require_relative 'jobs/io/write'
-require_relative 'jobs/serialize/csv'
-require_relative 'jobs/serialize/json'
-require_relative 'jobs/serialize/yaml'
-require_relative 'jobs/set'
-require_relative 'jobs/sleep'
+require_relative 'library'
 
 module Burner
   # Main library of jobs.  This file contains all the basic/default jobs.  All other consumer
@@ -36,25 +16,25 @@ module Burner
   class Jobs
     acts_as_hashable_factory
 
-    register 'collection/arrays_to_objects', Collection::ArraysToObjects
-    register 'collection/graph',             Collection::Graph
-    register 'collection/objects_to_arrays', Collection::ObjectsToArrays
-    register 'collection/shift',             Collection::Shift
-    register 'collection/transform',         Collection::Transform
-    register 'collection/unpivot',           Collection::Unpivot
-    register 'collection/values',            Collection::Values
-    register 'deserialize/csv',              Deserialize::Csv
-    register 'deserialize/json',             Deserialize::Json
-    register 'deserialize/yaml',             Deserialize::Yaml
-    register 'dummy', '',                    Dummy
-    register 'echo',                         Echo
-    register 'io/exist',                     IO::Exist
-    register 'io/read',                      IO::Read
-    register 'io/write',                     IO::Write
-    register 'serialize/csv',                Serialize::Csv
-    register 'serialize/json',               Serialize::Json
-    register 'serialize/yaml',               Serialize::Yaml
-    register 'set',                          Set
-    register 'sleep',                        Sleep
+    register 'collection/arrays_to_objects', Library::Collection::ArraysToObjects
+    register 'collection/graph',             Library::Collection::Graph
+    register 'collection/objects_to_arrays', Library::Collection::ObjectsToArrays
+    register 'collection/shift',             Library::Collection::Shift
+    register 'collection/transform',         Library::Collection::Transform
+    register 'collection/unpivot',           Library::Collection::Unpivot
+    register 'collection/values',            Library::Collection::Values
+    register 'deserialize/csv_to_arrays',    Library::Deserialize::CsvToArrays
+    register 'deserialize/json',             Library::Deserialize::Json
+    register 'deserialize/yaml',             Library::Deserialize::Yaml
+    register 'dummy', '',                    Library::Dummy
+    register 'echo',                         Library::Echo
+    register 'io/exist',                     Library::IO::Exist
+    register 'io/read',                      Library::IO::Read
+    register 'io/write',                     Library::IO::Write
+    register 'serialize/arrays_to_csv',      Library::Serialize::ArraysToCsv
+    register 'serialize/json',               Library::Serialize::Json
+    register 'serialize/yaml',               Library::Serialize::Yaml
+    register 'set_value',                    Library::SetValue
+    register 'sleep',                        Library::Sleep
   end
 end

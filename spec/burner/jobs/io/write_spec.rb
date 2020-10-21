@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Jobs::IO::Write do
+describe Burner::Library::IO::Write do
   let(:path)       { File.join(TEMP_DIR, "#{SecureRandom.uuid}.txt") }
   let(:params)     { { path: path } }
   let(:string_out) { StringOut.new }

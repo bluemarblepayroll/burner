@@ -13,7 +13,7 @@ module Burner
       # Take a CSV string and de-serialize into object(s).
       # Expected Payload#value input: nothing.
       # Payload#value output: an array of arrays.  Each inner array represents one data row.
-      class CsvToArrays < Job
+      class Csv < Job
         # This currently only supports returning an array of arrays, including the header row.
         # In the future this could be extended to offer more customizable options, such as
         # making it return an array of hashes with the columns mapped, etc.)

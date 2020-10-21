@@ -9,24 +9,26 @@
 
 require 'spec_helper'
 
-describe Burner::Library::Deserialize::CsvToArrays do
-  let(:value)      { "id,first,last\n1,captain,kangaroo\n2,twisted,sister\n" }
+describe Burner::Library::Serialize::Csv do
+  let(:value) do
+    [
+      %w[id first last],
+      %w[1 captain kangaroo],
+      %w[2 twisted sister]
+    ]
+  end
+
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:payload)    { Burner::Payload.new(value: value) }
-  let(:skip_first) { 0 }
 
   subject { described_class.make(name: 'test') }
 
   describe '#perform' do
-    it 'de-serializes and sets value' do
+    it 'serializes and sets value' do
       subject.perform(output, payload)
 
-      expected = [
-        %w[id first last],
-        %w[1 captain kangaroo],
-        %w[2 twisted sister]
-      ]
+      expected = "id,first,last\n1,captain,kangaroo\n2,twisted,sister\n"
 
       expect(payload.value).to eq(expected)
     end

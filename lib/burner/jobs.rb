@@ -23,7 +23,7 @@ module Burner
     register 'collection/transform',         Library::Collection::Transform
     register 'collection/unpivot',           Library::Collection::Unpivot
     register 'collection/values',            Library::Collection::Values
-    register 'deserialize/csv_to_arrays',    Library::Deserialize::CsvToArrays
+    register 'deserialize/csv',              Library::Deserialize::Csv
     register 'deserialize/json',             Library::Deserialize::Json
     register 'deserialize/yaml',             Library::Deserialize::Yaml
     register 'dummy', '',                    Library::Dummy
@@ -31,7 +31,7 @@ module Burner
     register 'io/exist',                     Library::IO::Exist
     register 'io/read',                      Library::IO::Read
     register 'io/write',                     Library::IO::Write
-    register 'serialize/arrays_to_csv',      Library::Serialize::ArraysToCsv
+    register 'serialize/csv',                Library::Serialize::Csv
     register 'serialize/json',               Library::Serialize::Json
     register 'serialize/yaml',               Library::Serialize::Yaml
     register 'set_value',                    Library::SetValue

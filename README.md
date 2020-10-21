@@ -243,7 +243,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 
 #### De-serialization
 
-* **deserialize/csv_to_arrays** []: Take a CSV string and de-serialize into object(s).  Currently it will return an array of arrays, with each nested array representing one row.
+* **deserialize/csv** []: Take a CSV string and de-serialize into object(s).  Currently it will return an array of arrays, with each nested array representing one row.
 * **deserialize/json** []: Treat input as a string and de-serialize it to JSON.
 * **deserialize/yaml** [safe]: Treat input as a string and de-serialize it to YAML.  By default it will try and [safely de-serialize](https://ruby-doc.org/stdlib-2.6.1/libdoc/psych/rdoc/Psych.html#method-c-safe_load) it (only using core classes).  If you wish to de-serialize it to any class type, pass in `safe: false`
 
@@ -255,7 +255,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 
 #### Serialization
 
-* **serialize/arrays_to_csv** []: Take an array of arrays and create a CSV.
+* **serialize/csv** []: Take an array of arrays and create a CSV.
 * **serialize/json** []: Convert value to JSON.
 * **serialize/yaml** []: Convert value to YAML.
 

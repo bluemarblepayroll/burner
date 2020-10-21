@@ -10,6 +10,8 @@
 module Burner
   module Library
     # Do nothing.
+    #
+    # Note: this does not use Payload#value.
     class Dummy < Job
       def perform(_output, _payload)
         nil

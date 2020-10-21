@@ -13,6 +13,9 @@ module Burner
   module Library
     module IO
       # Read value from disk.
+      #
+      # Expected Payload#value input: nothing.
+      # Payload#value output: contents of the specified file.
       class Read < Base
         attr_reader :binary
 

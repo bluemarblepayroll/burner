@@ -11,6 +11,9 @@ module Burner
   module Library
     module Deserialize
       # Take a JSON string and deserialize into object(s).
+      #
+      # Expected Payload#value input: string of JSON data.
+      # Payload#value output: anything, as specified by the JSON de-serializer.
       class Json < Job
         def perform(_output, payload)
           payload.value = JSON.parse(payload.value)

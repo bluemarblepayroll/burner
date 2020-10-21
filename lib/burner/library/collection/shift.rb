@@ -13,6 +13,7 @@ module Burner
       # Take an array and remove the first N elements, where N is specified by the amount
       # attribute.  The initial use case for this was to remove "header" rows from arrays,
       # like you would expect when parsing CSV files.
+      #
       # Expected Payload#value input: nothing.
       # Payload#value output: An array with N beginning elements removed.
       class Shift < Job

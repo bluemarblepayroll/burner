@@ -10,8 +10,14 @@
 module Burner
   module Library
     module Collection
-      # Iterate over all objects and return a new set of transformed objects.  Under the hood
-      # this uses the Realize library: https://github.com/bluemarblepayroll/realize
+      # Iterate over all objects and return a new set of transformed objects.  The object is
+      # transformed per the "transformers" attribute for its attributes.  An attribute defines
+      # the ultimate key to place the value in and then the transformer pipeline to use to
+      # derive the value.  Under the hood this uses the Realize library:
+      #   https://github.com/bluemarblepayroll/realize
+      # For more information on the specific contract for attributes, see the
+      # Burner::Modeling::Attribute class.
+      #
       # Expected Payload#value input: array of objects.
       # Payload#value output: An array of objects.
       class Transform < Job

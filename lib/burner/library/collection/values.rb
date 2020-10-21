@@ -13,6 +13,7 @@ module Burner
       # Take an array of objects and call #values on each object.
       # If include_keys is true (it is false by default), then call #keys on the first
       # object and inject that as a "header" object.
+      #
       # Expected Payload#value input: array of objects.
       # Payload#value output: An array of arrays.
       class Values < Job

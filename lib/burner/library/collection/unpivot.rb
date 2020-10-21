@@ -13,6 +13,7 @@ module Burner
       # Take an array of objects and un-pivot groups of keys into rows.
       # Under the hood it uses HashMath's Unpivot class:
       # https://github.com/bluemarblepayroll/hash_math
+      #
       # Expected Payload#value input: array of objects.
       # Payload#value output: An array of objects.
       class Unpivot < Job

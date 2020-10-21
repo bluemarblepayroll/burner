@@ -11,6 +11,7 @@ module Burner
   module Library
     module Serialize
       # Take an array of arrays and create a CSV.
+      #
       # Expected Payload#value input: array of arrays.
       # Payload#value output: a serialized CSV string.
       class Csv < Job

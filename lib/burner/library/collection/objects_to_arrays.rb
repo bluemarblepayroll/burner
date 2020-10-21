@@ -12,6 +12,7 @@ module Burner
     module Collection
       # Convert an array of objects to an array of arrays.  You can leverage the separator
       # option to support key paths and nested objects.
+      #
       # Expected Payload#value input: array of hashes.
       # Payload#value output: An array of arrays.
       class ObjectsToArrays < Job
@@ -19,7 +20,9 @@ module Burner
 
         # If you wish to support nested objects you can pass in a string to use as a
         # key path separator.  For example: if you would like to recognize dot-notation for
-        # nested hashes then set separator to '.'.
+        # nested hashes then set separator to '.'.  For more information, see the underlying
+        # library that supports this dot-notation concept:
+        #   https://github.com/bluemarblepayroll/objectable
         def initialize(name:, mappings: [], separator: '')
           super(name: name)
 

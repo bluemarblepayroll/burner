@@ -10,6 +10,8 @@
 module Burner
   module Library
     # Output a simple message to the output.
+    #
+    # Note: this does not use Payload#value.
     class Echo < Job
       attr_reader :message
 

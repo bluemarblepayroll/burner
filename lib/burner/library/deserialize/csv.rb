@@ -11,6 +11,7 @@ module Burner
   module Library
     module Deserialize
       # Take a CSV string and de-serialize into object(s).
+      #
       # Expected Payload#value input: nothing.
       # Payload#value output: an array of arrays.  Each inner array represents one data row.
       class Csv < Job

@@ -11,6 +11,7 @@ module Burner
   module Library
     module Collection
       # Convert an array of arrays to an array of objects.
+      #
       # Expected Payload#value input: array of arrays.
       # Payload#value output: An array of hashes.
       class ArraysToObjects < Job

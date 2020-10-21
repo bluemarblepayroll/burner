@@ -10,7 +10,13 @@
 module Burner
   module Library
     module Deserialize
-      # Take a YAML string and deserialize into object(s).
+      # Take a YAML string and deserialize into object(s).  It uses YAML#safe_load by default,
+      # which ensures only a limited number of Ruby object constants can be hydrated by the
+      # YAML.  If you wish to ease this restriction, for example if you have custom serialization
+      # for custom classes, then you can pass in safe: false.
+      #
+      # Expected Payload#value input: string of YAML data.
+      # Payload#value output: anything as specified by the YAML de-serializer.
       class Yaml < Job
         attr_reader :safe
 

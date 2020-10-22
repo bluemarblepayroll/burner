@@ -11,10 +11,43 @@ module Burner
   module Library
     module Collection
       # Convert an array of objects to an array of arrays.  You can leverage the separator
-      # option to support key paths and nested objects.
+      # option to support key paths and nested objects.  Pass in an array of
+      # Burner::Modeling::KeyIndexMapping instances or hashable configurations which specifies
+      # the key-to-index mappings to use.
       #
       # Expected Payload#value input: array of hashes.
       # Payload#value output: An array of arrays.
+      #
+      # An example using a configuration-first pipeline:
+      #
+      #   config = {
+      #     jobs: [
+      #       {
+      #         name: 'set',
+      #         type: 'set_value',
+      #         value: [
+      #           [1, 'funky']
+      #         ]
+      #       },
+      #       {
+      #         name: 'map',
+      #         type: 'collection/objects_to_arrays',
+      #         mappings: [
+      #           { index: 0, key: 'id' },
+      #           { index: 1, key: 'name' }
+      #         ]
+      #       },
+      #       {
+      #         name: 'output',
+      #         type: 'echo',
+      #         message: 'value is currently: #{__value}'
+      #       },
+      #
+      #     ],
+      #     steps: %w[set map output]
+      #   }
+      #
+      #   Burner::Pipeline.make(config).execute
       class ObjectsToArrays < Job
         attr_reader :mappings
 

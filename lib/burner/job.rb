@@ -26,6 +26,26 @@ module Burner
       @name = name.to_s
     end
 
+    # There are only two requirements to be considered a valid Burner Job:
+    #   1. The class responds to #name
+    #   2. The class responds to #perform(output, payload)
+    #
+    # The #perform method takes in two arguments: output (an instance of Burner::Output)
+    # and payload (an instance of Burner::Payload).  Jobs can leverage output to emit
+    # information to the pipeline's log(s).  The payload is utilized to pass data from job to job,
+    # with its most important attribute being #value.  The value attribute is mutable
+    # per the individual job's context (meaning of it is unknown without understanding a job's
+    # input and output value of #value.).  Therefore #value can mean anything and it is up to the
+    # engineers to clearly document the assumptions of its use.
+    #
+    # Returning false will short-circuit the pipeline right after the job method exits.
+    # Returning anything else besides false just means "continue".
+    def perform(output, _payload)
+      output.detail("#perform not implemented for: #{self.class.name}")
+
+      nil
+    end
+
     protected
 
     def job_string_template(expression, output, payload)

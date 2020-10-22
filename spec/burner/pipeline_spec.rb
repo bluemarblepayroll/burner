@@ -240,4 +240,82 @@ describe Burner::Pipeline do
       expect(actual).to eq(expected_yaml)
     end
   end
+
+  describe 'other examples' do
+    specify 'Collection::ArraysToObjects example' do
+      config = {
+        jobs: [
+          {
+            name: 'set',
+            type: 'set_value',
+            value: [
+              [1, 'funky']
+            ]
+          },
+          {
+            name: 'map',
+            type: 'collection/arrays_to_objects',
+            mappings: [
+              { index: 0, key: 'id' },
+              { index: 1, key: 'name' }
+            ]
+          },
+          {
+            name: 'output',
+            type: 'echo',
+            message: "value is currently: #{__value}"
+          },
+
+        ],
+        steps: %w[set map output]
+      }
+
+      payload = Burner::Payload.new
+      described_class.make(config).execute(output: output, payload: payload)
+
+      expected = [
+        { 'id' => 1, 'name' => 'funky' }
+      ]
+
+      expect(payload.value).to eq(expected)
+    end
+
+    specify 'Collection::ObjectsToArrays example' do
+      config = {
+        jobs: [
+          {
+            name: 'set',
+            type: 'set_value',
+            value: [
+              { 'id' => 1, 'name' => 'funky' }
+            ]
+          },
+          {
+            name: 'map',
+            type: 'collection/objects_to_arrays',
+            mappings: [
+              { index: 0, key: 'id' },
+              { index: 1, key: 'name' }
+            ]
+          },
+          {
+            name: 'output',
+            type: 'echo',
+            message: "value is currently: #{__value}"
+          },
+
+        ],
+        steps: %w[set map output]
+      }
+
+      payload = Burner::Payload.new
+      described_class.make(config).execute(output: output, payload: payload)
+
+      expected = [
+        [1, 'funky']
+      ]
+
+      expect(payload.value).to eq(expected)
+    end
+  end
 end

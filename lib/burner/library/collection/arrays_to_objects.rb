@@ -10,10 +10,43 @@
 module Burner
   module Library
     module Collection
-      # Convert an array of arrays to an array of objects.
+      # Convert an array of arrays to an array of objects.  Pass in an array of
+      # Burner::Modeling::KeyIndexMapping instances or hashable configurations which specifies
+      # the index-to-key mappings to use.
       #
       # Expected Payload#value input: array of arrays.
       # Payload#value output: An array of hashes.
+      #
+      # An example using a configuration-first pipeline:
+      #
+      #   config = {
+      #     jobs: [
+      #       {
+      #         name: 'set',
+      #         type: 'set_value',
+      #         value: [
+      #           [1, 'funky']
+      #         ]
+      #       },
+      #       {
+      #         name: 'map',
+      #         type: 'collection/arrays_to_objects',
+      #         mappings: [
+      #           { index: 0, key: 'id' },
+      #           { index: 1, key: 'name' }
+      #         ]
+      #       },
+      #       {
+      #         name: 'output',
+      #         type: 'echo',
+      #         message: 'value is currently: #{__value}'
+      #       },
+      #
+      #     ],
+      #     steps: %w[set map output]
+      #   }
+      #
+      #   Burner::Pipeline.make(config).execute
       class ArraysToObjects < Job
         attr_reader :mappings
 

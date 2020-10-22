@@ -7,7 +7,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require 'csv'
 require 'spec_helper'
 
 class ParseCsv < Burner::Job
@@ -263,7 +262,7 @@ describe Burner::Pipeline do
           {
             name: 'output',
             type: 'echo',
-            message: "value is currently: #{__value}"
+            message: 'value is currently: {__value}'
           },
 
         ],
@@ -301,7 +300,7 @@ describe Burner::Pipeline do
           {
             name: 'output',
             type: 'echo',
-            message: "value is currently: #{__value}"
+            message: 'value is currently: {__value}'
           },
 
         ],

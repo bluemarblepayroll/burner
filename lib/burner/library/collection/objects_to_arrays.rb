@@ -40,7 +40,7 @@ module Burner
       #       {
       #         name: 'output',
       #         type: 'echo',
-      #         message: 'value is currently: #{__value}'
+      #         message: 'value is currently: {__value}'
       #       },
       #
       #     ],

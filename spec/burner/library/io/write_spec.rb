@@ -30,10 +30,10 @@ describe Burner::Library::IO::Write do
       expect(actual).to eq(value)
     end
 
-    it 'adds WrittenFile instance to Payload#written_files' do
-      expect(payload.written_files.length).to                  eq(1)
-      expect(payload.written_files.first.logical_filename).to  eq(path)
-      expect(payload.written_files.first.physical_filename).to eq(path)
+    it 'adds WrittenFile instance to Payload#side_effects' do
+      expect(payload.side_effects.length).to                  eq(1)
+      expect(payload.side_effects.first.logical_filename).to  eq(path)
+      expect(payload.side_effects.first.physical_filename).to eq(path)
     end
   end
 end

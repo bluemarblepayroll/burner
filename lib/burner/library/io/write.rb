@@ -38,11 +38,13 @@ module Burner
             File.open(compiled_path, mode) { |io| io.write(payload.value) }
           end.real
 
-          payload.add_written_file(
+          side_effect = SideEffects::WrittenFile.new(
             logical_filename: compiled_path,
             physical_filename: compiled_path,
             time_in_seconds: time_in_seconds
           )
+
+          payload.add_side_effect(side_effect)
 
           nil
         end

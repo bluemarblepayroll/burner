@@ -7,35 +7,38 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'written_file'
-
 module Burner
   # The input for all Job#perform methods.  The main notion of this object is its "value"
   # attribute.  This is dynamic and weak on purpose and is subject to whatever the Job#perform
   # methods decides it is.  This definitely adds an order-of-magnitude complexity to this whole
   # library and lifecycle, but I am not sure there is any other way around it: trying to build
   # a generic, open-ended object pipeline to serve almost any use case.
+  #
+  # The side_effects attribute can also be utilized as a way for jobs to emit any data in a more
+  # structured/additive manner.  The initial use case for this was for Burner's core IO jobs to
+  # report back the files it has written in a more structured data way (as opposed to simply
+  # writing some information to the output.)
   class Payload
     attr_accessor :value
 
     attr_reader :params,
-                :time,
-                :written_files
+                :side_effects,
+                :time
 
     def initialize(
       params: {},
+      side_effects: [],
       time: Time.now.utc,
-      value: nil,
-      written_files: []
+      value: nil
     )
-      @params        = params || {}
-      @time          = time || Time.now.utc
-      @value         = value
-      @written_files = written_files || []
+      @params       = params || {}
+      @side_effects = side_effects || []
+      @time         = time || Time.now.utc
+      @value        = value
     end
 
-    def add_written_file(written_file)
-      tap { written_files << WrittenFile.make(written_file) }
+    def add_side_effect(side_effect)
+      tap { side_effects << side_effect }
     end
   end
 end

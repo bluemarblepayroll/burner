@@ -15,11 +15,11 @@ module Burner
       #
       # Expected Payload#value input: array of objects.
       # Payload#value output: An array of objects.
-      class Graph < Job
+      class Graph < JobWithRegister
         attr_reader :key, :groups
 
-        def initialize(name:, key:, config: Hashematics::Configuration.new)
-          super(name: name)
+        def initialize(name:, key:, config: Hashematics::Configuration.new, register: '')
+          super(name: name, register: register)
 
           raise ArgumentError, 'key is required' if key.to_s.empty?
 
@@ -30,11 +30,11 @@ module Burner
         end
 
         def perform(output, payload)
-          graph = Hashematics::Graph.new(groups).add(array(payload.value))
+          graph = Hashematics::Graph.new(groups).add(array(payload[register]))
 
           output.detail("Graphing: #{key}")
 
-          payload.value = graph.data(key)
+          payload[register] = graph.data(key)
         end
       end
     end

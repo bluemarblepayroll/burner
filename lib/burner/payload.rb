@@ -19,26 +19,45 @@ module Burner
   # report back the files it has written in a more structured data way (as opposed to simply
   # writing some information to the output.)
   class Payload
-    attr_accessor :value
-
     attr_reader :params,
+                :registers,
                 :side_effects,
                 :time
 
     def initialize(
       params: {},
+      registers: {},
       side_effects: [],
-      time: Time.now.utc,
-      value: nil
+      time: Time.now.utc
     )
       @params       = params || {}
+      @registers    = {}
       @side_effects = side_effects || []
       @time         = time || Time.now.utc
-      @value        = value
+
+      add_registers(registers)
     end
 
     def add_side_effect(side_effect)
       tap { side_effects << side_effect }
+    end
+
+    def []=(key, value)
+      set(key, value)
+    end
+
+    def [](key)
+      registers[key.to_s]
+    end
+
+    private
+
+    def set(key, value)
+      registers[key.to_s] = value
+    end
+
+    def add_registers(registers)
+      (registers || {}).each { |k, v| set(k, v) }
     end
   end
 end

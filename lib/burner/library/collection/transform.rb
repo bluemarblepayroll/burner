@@ -20,15 +20,15 @@ module Burner
       #
       # Expected Payload#value input: array of objects.
       # Payload#value output: An array of objects.
-      class Transform < Job
+      class Transform < JobWithRegister
         BLANK = ''
 
         attr_reader :attribute_renderers,
                     :exclusive,
                     :resolver
 
-        def initialize(name:, attributes: [], exclusive: false, separator: BLANK)
-          super(name: name)
+        def initialize(name:, attributes: [], exclusive: false, register: '', separator: BLANK)
+          super(name: name, register: register)
 
           @resolver  = Objectable.resolver(separator: separator)
           @exclusive = exclusive || false
@@ -41,10 +41,10 @@ module Burner
         end
 
         def perform(output, payload)
-          payload.value = array(payload.value).map { |row| transform(row, payload.time) }
+          payload[register] = array(payload[register]).map { |row| transform(row, payload.time) }
 
           attr_count = attribute_renderers.length
-          row_count  = payload.value.length
+          row_count  = payload[register].length
 
           output.detail("Transformed #{attr_count} attributes(s) for #{row_count} row(s)")
         end

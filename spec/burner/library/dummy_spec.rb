@@ -10,16 +10,15 @@
 require 'spec_helper'
 
 describe Burner::Library::Dummy do
+  let(:payload) { Burner::Payload.new }
+
   subject { described_class.make(name: 'test') }
 
   describe '#perform' do
     it "does not change payload's value" do
-      value   = 123
-      payload = Burner::Payload.new(value: value)
-
       subject.perform(nil, payload)
 
-      expect(payload.value).to eq(value)
+      expect(payload.registers).to eq({})
     end
   end
 end

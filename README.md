@@ -233,39 +233,42 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 
 #### Collection
 
-* **collection/arrays_to_objects** [mappings]: Convert an array of arrays to an array of objects.
-* **collection/graph** [config, key]: Use [Hashematics](https://github.com/bluemarblepayroll/hashematics) to turn a flat array of objects into a deeply nested object tree.
-* **collection/objects_to_arrays** [mappings]: Convert an array of objects to an array of arrays.
-* **collection/shift** [amount]: Remove the first N number of elements from an array.
-* **collection/transform** [attributes, exclusive, separator]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.  This job uses [Realize](https://github.com/bluemarblepayroll/realize), which provides its own extendable value-transformation pipeline.
-* **collection/unpivot** [pivot_set]: Take an array of objects and unpivot specific sets of keys into rows.  Under the hood it uses [HashMath's Unpivot class](https://github.com/bluemarblepayroll/hash_math#unpivot-hash-key-coalescence-and-row-extrapolation).
-* **collection/values** [include_keys]: Take an array of objects and call `#values` on each object. If include_keys is true (it is false by default), then call `#keys` on the first object and inject that as a "header" object.
+* **collection/arrays_to_objects** [mappings, register]: Convert an array of arrays to an array of objects.
+* **collection/graph** [config, key, register]: Use [Hashematics](https://github.com/bluemarblepayroll/hashematics) to turn a flat array of objects into a deeply nested object tree.
+* **collection/objects_to_arrays** [mappings, register]: Convert an array of objects to an array of arrays.
+* **collection/shift** [amount, register]: Remove the first N number of elements from an array.
+* **collection/transform** [attributes, exclusive, separator, register]: Iterate over all objects and transform each key per the attribute transformers specifications.  If exclusive is set to false then the current object will be overridden/merged.  Separator can also be set for key path support.  This job uses [Realize](https://github.com/bluemarblepayroll/realize), which provides its own extendable value-transformation pipeline.
+* **collection/unpivot** [pivot_set, register]: Take an array of objects and unpivot specific sets of keys into rows.  Under the hood it uses [HashMath's Unpivot class](https://github.com/bluemarblepayroll/hash_math#unpivot-hash-key-coalescence-and-row-extrapolation).
+* **collection/values** [include_keys, register]: Take an array of objects and call `#values` on each object. If include_keys is true (it is false by default), then call `#keys` on the first object and inject that as a "header" object.
 
 #### De-serialization
 
-* **deserialize/csv** []: Take a CSV string and de-serialize into object(s).  Currently it will return an array of arrays, with each nested array representing one row.
-* **deserialize/json** []: Treat input as a string and de-serialize it to JSON.
-* **deserialize/yaml** [safe]: Treat input as a string and de-serialize it to YAML.  By default it will try and [safely de-serialize](https://ruby-doc.org/stdlib-2.6.1/libdoc/psych/rdoc/Psych.html#method-c-safe_load) it (only using core classes).  If you wish to de-serialize it to any class type, pass in `safe: false`
+* **deserialize/csv** [register]: Take a CSV string and de-serialize into object(s).  Currently it will return an array of arrays, with each nested array representing one row.
+* **deserialize/json** [register]: Treat input as a string and de-serialize it to JSON.
+* **deserialize/yaml** [register, safe]: Treat input as a string and de-serialize it to YAML.  By default it will try and [safely de-serialize](https://ruby-doc.org/stdlib-2.6.1/libdoc/psych/rdoc/Psych.html#method-c-safe_load) it (only using core classes).  If you wish to de-serialize it to any class type, pass in `safe: false`
 
 #### IO
 
 * **io/exist** [path, short_circuit]: Check to see if a file exists. The path parameter can be interpolated using `Payload#params`.  If short_circuit was set to true (defaults to false) and the file does not exist then the pipeline will be short-circuited.
-* **io/read** [binary, path]: Read in a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+read mode.
-* **io/write** [binary, path]: Write to a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.
+* **io/read** [binary, path, register]: Read in a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+read mode.
+* **io/write** [binary, path, register]: Write to a local file.  The path parameter can be interpolated using `Payload#params`.  If the contents are binary, pass in `binary: true` to open it up in binary+write mode.
 
 #### Serialization
 
-* **serialize/csv** []: Take an array of arrays and create a CSV.
-* **serialize/json** []: Convert value to JSON.
-* **serialize/yaml** []: Convert value to YAML.
+* **serialize/csv** [register]: Take an array of arrays and create a CSV.
+* **serialize/json** [register]: Convert value to JSON.
+* **serialize/yaml** [register]: Convert value to YAML.
 
 #### General
 
 * **dummy** []: Do nothing
 * **echo** [message]: Write a message to the output.  The message parameter can be interpolated using  `Payload#params`.
-* **set** [value]: Set the value to any arbitrary value.
+* **set** [register, value]: Set the value to any arbitrary value.
 * **sleep** [seconds]: Sleep the thread for X number of seconds.
 
+Notes:
+
+* If you see that a job accepts a 'register' attribute/argument, that indicates a job will access and/or mutate the payload.  The register indicates which part of the payload the job will interact with.  This allows jobs to be placed into 'lanes'.  If register is not specified, then the default register is used.
 
 ### Adding & Registering Jobs
 
@@ -274,9 +277,9 @@ Where this library shines is when additional jobs are plugged in.  Burner uses i
 Let's say we would like to register a job to parse a CSV:
 
 ````ruby
-class ParseCsv < Burner::Job
+class ParseCsv < Burner::JobWithRegister
   def perform(output, payload)
-    payload.value = CSV.parse(payload.value, headers: true).map(&:to_h)
+    payload[register] = CSV.parse(payload[register], headers: true).map(&:to_h)
 
     nil
   end

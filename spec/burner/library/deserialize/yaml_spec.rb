@@ -13,9 +13,10 @@ describe Burner::Library::Deserialize::Yaml do
   let(:value)      { "---\nname: Captain Jack Sparrow\n" }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
-  let(:payload)    { Burner::Payload.new(value: value) }
+  let(:payload)    { Burner::Payload.new(registers: { register => value }) }
+  let(:register)   { 'register_a' }
 
-  subject { described_class.make(name: 'test') }
+  subject { described_class.make(name: 'test', register: register) }
 
   describe '#perform' do
     it 'de-serializes and sets value' do
@@ -23,7 +24,7 @@ describe Burner::Library::Deserialize::Yaml do
 
       expected = { 'name' => 'Captain Jack Sparrow' }
 
-      expect(payload.value).to eq(expected)
+      expect(payload[register]).to eq(expected)
     end
   end
 end

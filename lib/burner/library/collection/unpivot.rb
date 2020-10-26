@@ -16,11 +16,11 @@ module Burner
       #
       # Expected Payload#value input: array of objects.
       # Payload#value output: An array of objects.
-      class Unpivot < Job
+      class Unpivot < JobWithRegister
         attr_reader :unpivot
 
-        def initialize(name:, pivot_set: HashMath::Unpivot::PivotSet.new)
-          super(name: name)
+        def initialize(name:, pivot_set: HashMath::Unpivot::PivotSet.new, register: '')
+          super(name: name, register: register)
 
           @unpivot = HashMath::Unpivot.new(pivot_set)
 
@@ -28,16 +28,24 @@ module Burner
         end
 
         def perform(output, payload)
-          pivot_count   = unpivot.pivot_set.pivots.length
-          key_count     = unpivot.pivot_set.pivots.map { |p| p.keys.length }.sum
-          payload.value = array(payload.value)
-          object_count  = payload.value.length || 0
+          payload[register] = array(payload[register])
+          object_count      = payload[register].length || 0
 
           message = "#{pivot_count} Pivots, Key(s): #{key_count} key(s), #{object_count} objects(s)"
 
           output.detail(message)
 
-          payload.value = payload.value.flat_map { |object| unpivot.expand(object) }
+          payload[register] = payload[register].flat_map { |object| unpivot.expand(object) }
+        end
+
+        private
+
+        def pivot_count
+          unpivot.pivot_set.pivots.length
+        end
+
+        def key_count
+          unpivot.pivot_set.pivots.map { |p| p.keys.length }.sum
         end
       end
     end

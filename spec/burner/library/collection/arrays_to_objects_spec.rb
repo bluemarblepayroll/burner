@@ -42,15 +42,16 @@ describe Burner::Library::Collection::ArraysToObjects do
 
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
-  let(:payload)    { Burner::Payload.new(value: arrays) }
+  let(:register)   { 'register_a' }
+  let(:payload)    { Burner::Payload.new(registers: { register => arrays }) }
 
-  subject { described_class.make(name: 'test', mappings: mappings) }
+  subject { described_class.make(name: 'test', mappings: mappings, register: register) }
 
   describe '#perform' do
     it 'returns mapped object' do
       subject.perform(output, payload)
 
-      expect(payload.value).to eq(objects)
+      expect(payload[register]).to eq(objects)
     end
   end
 end

@@ -62,9 +62,17 @@ describe Burner::Library::Collection::Graph do
 
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
-  let(:payload)    { Burner::Payload.new(value: denormalized_objects) }
+  let(:register)   { 'register_a' }
+  let(:payload)    { Burner::Payload.new(registers: { register => denormalized_objects }) }
 
-  subject { described_class.make(name: 'test', key: :people, config: config) }
+  subject do
+    described_class.make(
+      name: 'test',
+      key: :people,
+      config: config,
+      register: register
+    )
+  end
 
   describe '#perform' do
     it 'returns mapped object' do
@@ -90,7 +98,7 @@ describe Burner::Library::Collection::Graph do
         }
       ]
 
-      expect(payload.value).to eq(expected)
+      expect(payload[register]).to eq(expected)
     end
   end
 end

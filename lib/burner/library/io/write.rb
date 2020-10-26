@@ -19,8 +19,8 @@ module Burner
       class Write < Base
         attr_reader :binary
 
-        def initialize(name:, path:, binary: false)
-          super(name: name, path: path)
+        def initialize(name:, path:, binary: false, register: '')
+          super(name: name, path: path, register: register)
 
           @binary = binary || false
 
@@ -35,7 +35,7 @@ module Burner
           output.detail("Writing: #{compiled_path}")
 
           time_in_seconds = Benchmark.measure do
-            File.open(compiled_path, mode) { |io| io.write(payload.value) }
+            File.open(compiled_path, mode) { |io| io.write(payload[register]) }
           end.real
 
           side_effect = SideEffects::WrittenFile.new(

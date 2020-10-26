@@ -7,7 +7,8 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'job'
+require_relative 'job_with_register'
+
 require_relative 'library/collection/arrays_to_objects'
 require_relative 'library/collection/graph'
 require_relative 'library/collection/objects_to_arrays'

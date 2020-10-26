@@ -16,15 +16,15 @@ module Burner
       #
       # Expected Payload#value input: nothing.
       # Payload#value output: An array with N beginning elements removed.
-      class Shift < Job
+      class Shift < JobWithRegister
         DEFAULT_AMOUNT = 0
 
         private_constant :DEFAULT_AMOUNT
 
         attr_reader :amount
 
-        def initialize(name:, amount: DEFAULT_AMOUNT)
-          super(name: name)
+        def initialize(name:, amount: DEFAULT_AMOUNT, register: '')
+          super(name: name, register: register)
 
           @amount = amount.to_i
 
@@ -34,7 +34,7 @@ module Burner
         def perform(output, payload)
           output.detail("Shifting #{amount} entries.")
 
-          payload.value = array(payload.value).slice(amount..-1)
+          payload[register] = array(payload[register]).slice(amount..-1)
         end
       end
     end

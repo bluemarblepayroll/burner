@@ -13,11 +13,11 @@ module Burner
     #
     # Expected Payload#value input: anything.
     # Payload#value output: whatever value was specified in this job.
-    class SetValue < Job
+    class SetValue < JobWithRegister
       attr_reader :value
 
-      def initialize(name:, value: nil)
-        super(name: name)
+      def initialize(name:, register: '', value: nil)
+        super(name: name, register: register)
 
         @value = value
 
@@ -25,7 +25,7 @@ module Burner
       end
 
       def perform(_output, payload)
-        payload.value = value
+        payload[register] = value
       end
     end
   end

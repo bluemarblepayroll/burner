@@ -48,7 +48,7 @@ module Burner
       #   }
       #
       #   Burner::Pipeline.make(config).execute
-      class ObjectsToArrays < Job
+      class ObjectsToArrays < JobWithRegister
         attr_reader :mappings
 
         # If you wish to support nested objects you can pass in a string to use as a
@@ -56,8 +56,8 @@ module Burner
         # nested hashes then set separator to '.'.  For more information, see the underlying
         # library that supports this dot-notation concept:
         #   https://github.com/bluemarblepayroll/objectable
-        def initialize(name:, mappings: [], separator: '')
-          super(name: name)
+        def initialize(name:, mappings: [], register: '', separator: '')
+          super(name: name, register: register)
 
           @mappings = Modeling::KeyIndexMapping.array(mappings)
           @resolver = Objectable.resolver(separator: separator.to_s)
@@ -66,7 +66,7 @@ module Burner
         end
 
         def perform(_output, payload)
-          payload.value = array(payload.value).map { |object| key_to_index_map(object) }
+          payload[register] = array(payload[register]).map { |object| key_to_index_map(object) }
         end
 
         private

@@ -47,11 +47,11 @@ module Burner
       #   }
       #
       #   Burner::Pipeline.make(config).execute
-      class ArraysToObjects < Job
+      class ArraysToObjects < JobWithRegister
         attr_reader :mappings
 
-        def initialize(name:, mappings: [])
-          super(name: name)
+        def initialize(name:, mappings: [], register: '')
+          super(name: name, register: register)
 
           @mappings = Modeling::KeyIndexMapping.array(mappings)
 
@@ -59,7 +59,7 @@ module Burner
         end
 
         def perform(_output, payload)
-          payload.value = array(payload.value).map { |array| index_to_key_map(array) }
+          payload[register] = array(payload[register]).map { |array| index_to_key_map(array) }
         end
 
         private

@@ -16,11 +16,11 @@ module Burner
       #
       # Expected Payload#value input: array of objects.
       # Payload#value output: An array of arrays.
-      class Values < Job
+      class Values < JobWithRegister
         attr_reader :include_keys
 
-        def initialize(name:, include_keys: false)
-          super(name: name)
+        def initialize(name:, include_keys: false, register: '')
+          super(name: name, register: register)
 
           @include_keys = include_keys || false
 
@@ -28,10 +28,10 @@ module Burner
         end
 
         def perform(_output, payload)
-          payload.value = array(payload.value)
-          keys          = include_keys ? [keys(payload.value.first)] : []
-          values        = payload.value.map { |object| values(object) }
-          payload.value = keys + values
+          payload[register] = array(payload[register])
+          keys = include_keys ? [keys(payload[register].first)] : []
+          values = payload[register].map { |object| values(object) }
+          payload[register] = keys + values
         end
 
         private

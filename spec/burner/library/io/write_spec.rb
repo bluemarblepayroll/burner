@@ -15,9 +15,10 @@ describe Burner::Library::IO::Write do
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:value)      { 'I should be written to disk.' }
-  let(:payload)    { Burner::Payload.new(params: params, value: value) }
+  let(:register)   { 'register_a' }
+  let(:payload)    { Burner::Payload.new(params: params, registers: { register => value }) }
 
-  subject { described_class.make(name: 'test', path: '{path}') }
+  subject { described_class.make(name: 'test', path: '{path}', register: register) }
 
   describe '#perform' do
     before(:each) do

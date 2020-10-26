@@ -27,9 +27,10 @@ describe Burner::Library::Collection::Values do
 
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
-  let(:payload)    { Burner::Payload.new(value: objects) }
+  let(:register)   { 'register_a' }
+  let(:payload)    { Burner::Payload.new(registers: { register => objects}) }
 
-  subject { described_class.make(name: 'test', include_keys: include_keys) }
+  subject { described_class.make(name: 'test', include_keys: include_keys, register: register) }
 
   describe '#perform' do
     context 'when include_keys is false' do
@@ -43,7 +44,7 @@ describe Burner::Library::Collection::Values do
           %w[twisted 2 sister]
         ]
 
-        expect(payload.value).to eq(expected)
+        expect(payload[register]).to eq(expected)
       end
     end
 
@@ -59,7 +60,7 @@ describe Burner::Library::Collection::Values do
           %w[twisted 2 sister]
         ]
 
-        expect(payload.value).to eq(expected)
+        expect(payload[register]).to eq(expected)
       end
     end
   end

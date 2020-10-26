@@ -13,9 +13,10 @@ describe Burner::Library::Collection::Shift do
   let(:value)      { %w[a b c] }
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
-  let(:payload)    { Burner::Payload.new(value: value) }
+  let(:register)   { 'register_a' }
+  let(:payload)    { Burner::Payload.new(registers: { register => value }) }
 
-  subject { described_class.make(name: 'test', amount: amount) }
+  subject { described_class.make(name: 'test', amount: amount, register: register) }
 
   describe '#perform' do
     context 'when amount is 1' do
@@ -26,7 +27,7 @@ describe Burner::Library::Collection::Shift do
 
         expected = %w[b c]
 
-        expect(payload.value).to eq(expected)
+        expect(payload[register]).to eq(expected)
       end
     end
 
@@ -38,7 +39,7 @@ describe Burner::Library::Collection::Shift do
 
         expected = %w[c]
 
-        expect(payload.value).to eq(expected)
+        expect(payload[register]).to eq(expected)
       end
     end
 
@@ -50,7 +51,7 @@ describe Burner::Library::Collection::Shift do
 
         expected = []
 
-        expect(payload.value).to eq(expected)
+        expect(payload[register]).to eq(expected)
       end
     end
   end

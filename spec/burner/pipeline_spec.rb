@@ -9,9 +9,9 @@
 
 require 'spec_helper'
 
-class ParseCsv < Burner::Job
+class ParseCsv < Burner::JobWithRegister
   def perform(_output, payload)
-    payload.value = CSV.parse(payload.value, headers: true).map(&:to_h)
+    payload[register] = CSV.parse(payload[register], headers: true).map(&:to_h)
 
     nil
   end
@@ -23,6 +23,7 @@ describe Burner::Pipeline do
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:payload)    { Burner::Payload.new(params: params) }
+  let(:register)   { 'register_a' }
 
   let(:jobs) do
     [
@@ -178,7 +179,8 @@ describe Burner::Pipeline do
           {
             name: :read,
             type: 'io/read',
-            path: '{input_file}'
+            path: '{input_file}',
+            register: register
           },
           {
             name: :output_id,
@@ -192,16 +194,19 @@ describe Burner::Pipeline do
           },
           {
             name: :parse,
-            type: :parse_csv
+            type: :parse_csv,
+            register: register
           },
           {
             name: :convert,
-            type: 'serialize/yaml'
+            type: 'serialize/yaml',
+            register: register
           },
           {
             name: :write,
             type: 'io/write',
-            path: '{output_file}'
+            path: '{output_file}',
+            register: register
           }
         ],
         steps: %i[
@@ -249,7 +254,8 @@ describe Burner::Pipeline do
             type: 'set_value',
             value: [
               [1, 'funky']
-            ]
+            ],
+            register: register
           },
           {
             name: 'map',
@@ -257,7 +263,8 @@ describe Burner::Pipeline do
             mappings: [
               { index: 0, key: 'id' },
               { index: 1, key: 'name' }
-            ]
+            ],
+            register: register
           },
           {
             name: 'output',
@@ -276,7 +283,7 @@ describe Burner::Pipeline do
         { 'id' => 1, 'name' => 'funky' }
       ]
 
-      expect(payload.value).to eq(expected)
+      expect(payload[register]).to eq(expected)
     end
 
     specify 'Collection::ObjectsToArrays example' do
@@ -287,7 +294,8 @@ describe Burner::Pipeline do
             type: 'set_value',
             value: [
               { 'id' => 1, 'name' => 'funky' }
-            ]
+            ],
+            register: register
           },
           {
             name: 'map',
@@ -295,7 +303,8 @@ describe Burner::Pipeline do
             mappings: [
               { index: 0, key: 'id' },
               { index: 1, key: 'name' }
-            ]
+            ],
+            register: register
           },
           {
             name: 'output',
@@ -314,7 +323,7 @@ describe Burner::Pipeline do
         [1, 'funky']
       ]
 
-      expect(payload.value).to eq(expected)
+      expect(payload[register]).to eq(expected)
     end
   end
 end

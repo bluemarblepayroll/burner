@@ -17,11 +17,11 @@ module Burner
       #
       # Expected Payload#value input: string of YAML data.
       # Payload#value output: anything as specified by the YAML de-serializer.
-      class Yaml < Job
+      class Yaml < JobWithRegister
         attr_reader :safe
 
-        def initialize(name:, safe: true)
-          super(name: name)
+        def initialize(name:, register: '', safe: true)
+          super(name: name, register: register)
 
           @safe = safe
 
@@ -36,7 +36,9 @@ module Burner
         def perform(output, payload)
           output.detail('Warning: loading YAML not using safe_load.') unless safe
 
-          payload.value = safe ? YAML.safe_load(payload.value) : YAML.load(payload.value)
+          value = payload[register]
+
+          payload[register] = safe ? YAML.safe_load(value) : YAML.load(value)
         end
         # rubocop:enable Security/YAMLLoad
       end

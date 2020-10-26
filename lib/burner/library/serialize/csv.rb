@@ -14,10 +14,10 @@ module Burner
       #
       # Expected Payload#value input: array of arrays.
       # Payload#value output: a serialized CSV string.
-      class Csv < Job
+      class Csv < JobWithRegister
         def perform(_output, payload)
-          payload.value = CSV.generate(options) do |csv|
-            array(payload.value).each do |row|
+          payload[register] = CSV.generate(options) do |csv|
+            array(payload[register]).each do |row|
               csv << row
             end
           end

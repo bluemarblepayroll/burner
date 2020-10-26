@@ -61,29 +61,37 @@ describe Burner::Library::Collection::ObjectsToArrays do
 
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:register)   { 'register_a' }
 
-  subject { described_class.make(name: 'test', mappings: mappings, separator: separator) }
+  subject do
+    described_class.make(
+      name: 'test',
+      mappings: mappings,
+      separator: separator,
+      register: register
+    )
+  end
 
   describe '#perform' do
     context 'when separator is empty' do
       let(:separator) { '' }
-      let(:payload)   { Burner::Payload.new(value: flat_objects) }
+      let(:payload)   { Burner::Payload.new(registers: { register => flat_objects}) }
 
       it 'returns mapped array' do
         subject.perform(output, payload)
 
-        expect(payload.value).to eq(arrays)
+        expect(payload[register]).to eq(arrays)
       end
     end
 
     context 'when separator is not empty' do
       let(:separator) { '.' }
-      let(:payload)   { Burner::Payload.new(value: nested_objects) }
+      let(:payload)   { Burner::Payload.new(registers: { register => nested_objects}) }
 
       it 'returns mapped array' do
         subject.perform(output, payload)
 
-        expect(payload.value).to eq(arrays)
+        expect(payload[register]).to eq(arrays)
       end
     end
   end

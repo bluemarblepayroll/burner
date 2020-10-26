@@ -12,14 +12,16 @@ require 'spec_helper'
 describe Burner::Library::Collection::Transform do
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
-  let(:payload)    { Burner::Payload.new(value: value) }
+  let(:register)   { 'register_a' }
+  let(:payload)    { Burner::Payload.new(registers: { register => value }) }
 
   subject do
     described_class.make(
       name: 'test',
       attributes: attributes,
       exclusive: exclusive,
-      separator: separator
+      separator: separator,
+      register: register
     )
   end
 
@@ -67,7 +69,7 @@ describe Burner::Library::Collection::Transform do
             }
           ]
 
-          expect(payload.value).to eq(expected)
+          expect(payload[register]).to eq(expected)
         end
       end
 
@@ -83,7 +85,7 @@ describe Burner::Library::Collection::Transform do
             }
           ]
 
-          expect(payload.value).to eq(expected)
+          expect(payload[register]).to eq(expected)
         end
       end
     end
@@ -136,7 +138,7 @@ describe Burner::Library::Collection::Transform do
           }
         ]
 
-        expect(payload.value).to eq(expected)
+        expect(payload[register]).to eq(expected)
       end
     end
   end

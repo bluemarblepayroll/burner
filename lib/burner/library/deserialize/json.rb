@@ -14,9 +14,9 @@ module Burner
       #
       # Expected Payload#value input: string of JSON data.
       # Payload#value output: anything, as specified by the JSON de-serializer.
-      class Json < Job
+      class Json < JobWithRegister
         def perform(_output, payload)
-          payload.value = JSON.parse(payload.value)
+          payload[register] = JSON.parse(payload[register])
         end
       end
     end

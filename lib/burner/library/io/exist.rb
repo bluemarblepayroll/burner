@@ -16,12 +16,15 @@ module Burner
       # does not exist then the job will return false and short circuit the pipeline.
       #
       # Note: this does not use Payload#value.
-      class Exist < Base
-        attr_reader :short_circuit
+      class Exist < Job
+        attr_reader :path, :short_circuit
 
         def initialize(name:, path:, short_circuit: false)
-          super(name: name, path: path)
+          super(name: name)
 
+          raise ArgumentError, 'path is required' if path.to_s.empty?
+
+          @path          = path.to_s
           @short_circuit = short_circuit || false
         end
 

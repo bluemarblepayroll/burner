@@ -14,9 +14,9 @@ module Burner
       #
       # Expected Payload#value input: anything.
       # Payload#value output: string representing the output of the YAML serializer.
-      class Yaml < Job
+      class Yaml < JobWithRegister
         def perform(_output, payload)
-          payload.value = payload.value.to_yaml
+          payload[register] = payload[register].to_yaml
         end
       end
     end

@@ -57,7 +57,7 @@ module Burner
     protected
 
     def job_string_template(expression, output, payload)
-      templatable_params = payload.params.merge(__id: output.id, __value: payload.value)
+      templatable_params = payload.params.merge(__id: output.id, __value: payload[''])
 
       StringTemplate.instance.evaluate(expression, templatable_params)
     end

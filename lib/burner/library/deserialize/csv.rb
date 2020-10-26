@@ -14,12 +14,12 @@ module Burner
       #
       # Expected Payload#value input: nothing.
       # Payload#value output: an array of arrays.  Each inner array represents one data row.
-      class Csv < Job
+      class Csv < JobWithRegister
         # This currently only supports returning an array of arrays, including the header row.
         # In the future this could be extended to offer more customizable options, such as
         # making it return an array of hashes with the columns mapped, etc.)
         def perform(_output, payload)
-          payload.value = CSV.new(payload.value, headers: false).to_a
+          payload[register] = CSV.new(payload[register], headers: false).to_a
         end
       end
     end

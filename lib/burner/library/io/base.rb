@@ -11,11 +11,11 @@ module Burner
   module Library
     module IO
       # Common configuration/code for all IO Job subclasses.
-      class Base < Job
+      class Base < JobWithRegister
         attr_reader :path
 
-        def initialize(name:, path:)
-          super(name: name)
+        def initialize(name:, path:, register: '')
+          super(name: name, register: register)
 
           raise ArgumentError, 'path is required' if path.to_s.empty?
 

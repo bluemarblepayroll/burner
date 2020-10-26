@@ -21,8 +21,6 @@ module Burner
               csv << row
             end
           end
-
-          nil
         end
 
         private

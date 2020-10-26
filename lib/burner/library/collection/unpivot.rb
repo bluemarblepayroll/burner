@@ -38,8 +38,6 @@ module Burner
           output.detail(message)
 
           payload.value = payload.value.flat_map { |object| unpivot.expand(object) }
-
-          nil
         end
       end
     end

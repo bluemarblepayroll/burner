@@ -45,8 +45,6 @@ module Burner
           )
 
           payload.add_side_effect(side_effect)
-
-          nil
         end
 
         private

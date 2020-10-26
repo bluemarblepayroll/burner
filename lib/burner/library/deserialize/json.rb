@@ -17,8 +17,6 @@ module Burner
       class Json < Job
         def perform(_output, payload)
           payload.value = JSON.parse(payload.value)
-
-          nil
         end
       end
     end

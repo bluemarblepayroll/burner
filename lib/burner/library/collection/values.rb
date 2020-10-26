@@ -32,8 +32,6 @@ module Burner
           keys          = include_keys ? [keys(payload.value.first)] : []
           values        = payload.value.map { |object| values(object) }
           payload.value = keys + values
-
-          nil
         end
 
         private

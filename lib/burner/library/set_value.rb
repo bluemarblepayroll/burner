@@ -26,8 +26,6 @@ module Burner
 
       def perform(_output, payload)
         payload.value = value
-
-        nil
       end
     end
   end

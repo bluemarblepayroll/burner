@@ -60,8 +60,6 @@ module Burner
 
         def perform(_output, payload)
           payload.value = array(payload.value).map { |array| index_to_key_map(array) }
-
-          nil
         end
 
         private

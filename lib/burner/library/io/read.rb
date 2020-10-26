@@ -33,8 +33,6 @@ module Burner
           output.detail("Reading: #{compiled_path}")
 
           payload.value = File.open(compiled_path, mode, &:read)
-
-          nil
         end
 
         private

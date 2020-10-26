@@ -13,9 +13,7 @@ module Burner
     #
     # Note: this does not use Payload#value.
     class Dummy < Job
-      def perform(_output, _payload)
-        nil
-      end
+      def perform(_output, _payload); end
     end
   end
 end

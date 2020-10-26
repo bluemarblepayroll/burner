@@ -17,8 +17,6 @@ module Burner
       class Yaml < Job
         def perform(_output, payload)
           payload.value = payload.value.to_yaml
-
-          nil
         end
       end
     end

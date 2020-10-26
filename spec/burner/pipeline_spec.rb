@@ -92,7 +92,7 @@ describe Burner::Pipeline do
       expect(string_out.read).to     include('No parameters passed in.')
     end
 
-    it 'short circuits when Job#perform returns false' do
+    it 'short circuits when Job#halt? returns true' do
       pipeline = {
         jobs: [
           { name: :nothing1 },

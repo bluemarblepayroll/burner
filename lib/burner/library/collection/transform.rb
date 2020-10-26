@@ -47,8 +47,6 @@ module Burner
           row_count  = payload.value.length
 
           output.detail("Transformed #{attr_count} attributes(s) for #{row_count} row(s)")
-
-          nil
         end
 
         private

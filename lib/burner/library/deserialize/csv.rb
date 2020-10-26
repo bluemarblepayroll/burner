@@ -20,8 +20,6 @@ module Burner
         # making it return an array of hashes with the columns mapped, etc.)
         def perform(_output, payload)
           payload.value = CSV.new(payload.value, headers: false).to_a
-
-          nil
         end
       end
     end

@@ -27,8 +27,6 @@ module Burner
         output.detail("Going to sleep for #{seconds} second(s)")
 
         Kernel.sleep(seconds)
-
-        nil
       end
     end
   end

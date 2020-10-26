@@ -35,8 +35,6 @@ module Burner
           output.detail("Graphing: #{key}")
 
           payload.value = graph.data(key)
-
-          nil
         end
       end
     end

@@ -27,8 +27,6 @@ module Burner
         compiled_message = job_string_template(message, output, payload)
 
         output.detail(compiled_message)
-
-        nil
       end
     end
   end

@@ -48,9 +48,9 @@ module Burner
 
       time_in_seconds = Benchmark.measure do
         steps.each do |step|
-          return_value = step.perform(output, payload)
+          should_halt = step.perform(output, payload)
 
-          if return_value.is_a?(FalseClass)
+          if should_halt
             output.detail('Job returned false, ending pipeline.')
             break
           end

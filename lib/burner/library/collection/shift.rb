@@ -35,8 +35,6 @@ module Burner
           output.detail("Shifting #{amount} entries.")
 
           payload.value = array(payload.value).slice(amount..-1)
-
-          nil
         end
       end
     end

@@ -37,8 +37,6 @@ module Burner
           output.detail('Warning: loading YAML not using safe_load.') unless safe
 
           payload.value = safe ? YAML.safe_load(payload.value) : YAML.load(payload.value)
-
-          nil
         end
         # rubocop:enable Security/YAMLLoad
       end

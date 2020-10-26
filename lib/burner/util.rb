@@ -8,3 +8,4 @@
 #
 
 require_relative 'util/arrayable'
+require_relative 'util/string_template'

@@ -7,8 +7,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'string_template'
-
 module Burner
   # Abstract base class for all job subclasses.  The only public method a subclass needs to
   # implement #perform(output, payload) and then you can register it for use using
@@ -29,8 +27,6 @@ module Burner
     # There are only a few requirements to be considered a valid Burner Job:
     #   1. The class responds to #name
     #   2. The class responds to #perform(output, payload)
-    #   3. Optional: The class responds to #halt?.  If it returns true then the pipeline will
-    #      stop processing after #perform returns.
     #
     # The #perform method takes in two arguments: output (an instance of Burner::Output)
     # and payload (an instance of Burner::Payload).  Jobs can leverage output to emit
@@ -48,22 +44,12 @@ module Burner
       nil
     end
 
-    # Set halt to true by calling #halt.  This will indicate to the pipeline to stop all
-    # subsequent processing.
-    def halt?
-      @halt || false
-    end
-
     protected
 
     def job_string_template(expression, output, payload)
       templatable_params = payload.params.merge(__id: output.id, __value: payload[''])
 
-      StringTemplate.instance.evaluate(expression, templatable_params)
-    end
-
-    def halt
-      @halt = true
+      Util::StringTemplate.instance.evaluate(expression, templatable_params)
     end
   end
 end

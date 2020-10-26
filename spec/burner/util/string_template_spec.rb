@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::StringTemplate do
+describe Burner::Util::StringTemplate do
   subject { described_class.instance }
 
   describe '#evaluate' do

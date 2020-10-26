@@ -29,19 +29,13 @@ module Burner
     end
 
     def perform(output, payload)
-      should_halt = false
-
       output.title("#{job.class.name}#{SEPARATOR}#{job.name}")
 
       time_in_seconds = Benchmark.measure do
         job.perform(output, payload)
-
-        should_halt = job.respond_to?(:halt?) && job.halt?
       end.real.round(3)
 
       output.complete(time_in_seconds)
-
-      should_halt
     end
   end
 end

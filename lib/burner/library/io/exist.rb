@@ -37,7 +37,7 @@ module Burner
           output.detail("The path: #{compiled_path} #{verb} exist")
 
           # if anything but false is returned then the pipeline will not short circuit.
-          halt if short_circuit && !exists
+          payload.halt_pipeline if short_circuit && !exists
         end
       end
     end

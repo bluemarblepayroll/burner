@@ -38,16 +38,31 @@ module Burner
       add_registers(registers)
     end
 
+    # Add a side effect of a job.  This helps to keep track of things jobs do outside of its
+    # register mutations.
     def add_side_effect(side_effect)
       tap { side_effects << side_effect }
     end
 
+    # Set a register's value.
     def []=(key, value)
       set(key, value)
     end
 
+    # Retrieve a register's value.
     def [](key)
       registers[key.to_s]
+    end
+
+    # Set halt_pipeline to true.  This will indicate to the pipeline to stop all
+    # subsequent processing.
+    def halt_pipeline
+      @halt_pipeline = true
+    end
+
+    # Check and see if halt_pipeline was called.
+    def halt_pipeline?
+      @halt_pipeline || false
     end
 
     private

@@ -93,7 +93,7 @@ describe Burner::Pipeline do
       expect(string_out.read).to     include('No parameters passed in.')
     end
 
-    it 'short circuits when Job#halt? returns true' do
+    it 'short circuits when Payload#halt_pipeline? returns true' do
       pipeline = {
         jobs: [
           { name: :nothing1 },
@@ -111,7 +111,7 @@ describe Burner::Pipeline do
       Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
 
       expect(string_out.read).not_to include('nothing2')
-      expect(string_out.read).to     include('Job returned false, ending pipeline.')
+      expect(string_out.read).to     include('Payload was halted, ending pipeline.')
     end
   end
 

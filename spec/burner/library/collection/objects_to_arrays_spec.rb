@@ -75,7 +75,7 @@ describe Burner::Library::Collection::ObjectsToArrays do
   describe '#perform' do
     context 'when separator is empty' do
       let(:separator) { '' }
-      let(:payload)   { Burner::Payload.new(registers: { register => flat_objects}) }
+      let(:payload)   { Burner::Payload.new(registers: { register => flat_objects }) }
 
       it 'returns mapped array' do
         subject.perform(output, payload)
@@ -86,7 +86,7 @@ describe Burner::Library::Collection::ObjectsToArrays do
 
     context 'when separator is not empty' do
       let(:separator) { '.' }
-      let(:payload)   { Burner::Payload.new(registers: { register => nested_objects}) }
+      let(:payload)   { Burner::Payload.new(registers: { register => nested_objects }) }
 
       it 'returns mapped array' do
         subject.perform(output, payload)

@@ -28,7 +28,7 @@ describe Burner::Library::Collection::Values do
   let(:string_out) { StringOut.new }
   let(:output)     { Burner::Output.new(outs: string_out) }
   let(:register)   { 'register_a' }
-  let(:payload)    { Burner::Payload.new(registers: { register => objects}) }
+  let(:payload)    { Burner::Payload.new(registers: { register => objects }) }
 
   subject { described_class.make(name: 'test', include_keys: include_keys, register: register) }
 

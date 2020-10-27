@@ -5,7 +5,7 @@ params:
 jobs:
   - name: nothing
   - name: bedtime
-    type: sleep
+    type: b/sleep
     seconds: 0.5
 
 steps:

@@ -16,25 +16,31 @@ module Burner
   class Jobs
     acts_as_hashable_factory
 
-    register 'collection/arrays_to_objects', Library::Collection::ArraysToObjects
-    register 'collection/graph',             Library::Collection::Graph
-    register 'collection/objects_to_arrays', Library::Collection::ObjectsToArrays
-    register 'collection/shift',             Library::Collection::Shift
-    register 'collection/transform',         Library::Collection::Transform
-    register 'collection/unpivot',           Library::Collection::Unpivot
-    register 'collection/values',            Library::Collection::Values
-    register 'deserialize/csv',              Library::Deserialize::Csv
-    register 'deserialize/json',             Library::Deserialize::Json
-    register 'deserialize/yaml',             Library::Deserialize::Yaml
-    register 'dummy', '',                    Library::Dummy
-    register 'echo',                         Library::Echo
-    register 'io/exist',                     Library::IO::Exist
-    register 'io/read',                      Library::IO::Read
-    register 'io/write',                     Library::IO::Write
-    register 'serialize/csv',                Library::Serialize::Csv
-    register 'serialize/json',               Library::Serialize::Json
-    register 'serialize/yaml',               Library::Serialize::Yaml
-    register 'set_value',                    Library::SetValue
-    register 'sleep',                        Library::Sleep
+    # Dummy is the default as noted by the ''.  This means if a type is omitted, nil, or blank
+    # string then the dummy job will be used.
+    register 'b/dummy', '',                    Library::Dummy
+    register 'b/echo',                         Library::Echo
+    register 'b/set_value',                    Library::SetValue
+    register 'b/sleep',                        Library::Sleep
+
+    register 'b/collection/arrays_to_objects', Library::Collection::ArraysToObjects
+    register 'b/collection/graph',             Library::Collection::Graph
+    register 'b/collection/objects_to_arrays', Library::Collection::ObjectsToArrays
+    register 'b/collection/shift',             Library::Collection::Shift
+    register 'b/collection/transform',         Library::Collection::Transform
+    register 'b/collection/unpivot',           Library::Collection::Unpivot
+    register 'b/collection/values',            Library::Collection::Values
+
+    register 'b/deserialize/csv',              Library::Deserialize::Csv
+    register 'b/deserialize/json',             Library::Deserialize::Json
+    register 'b/deserialize/yaml',             Library::Deserialize::Yaml
+
+    register 'b/io/exist',                     Library::IO::Exist
+    register 'b/io/read',                      Library::IO::Read
+    register 'b/io/write',                     Library::IO::Write
+
+    register 'b/serialize/csv',                Library::Serialize::Csv
+    register 'b/serialize/json',               Library::Serialize::Json
+    register 'b/serialize/yaml',               Library::Serialize::Yaml
   end
 end

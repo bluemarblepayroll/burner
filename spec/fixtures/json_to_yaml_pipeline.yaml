@@ -1,24 +1,24 @@
 jobs:
   - name: read
-    type: io/read
+    type: b/io/read
     path: '{input_file}'
 
   - name: output_id
-    type: echo
+    type: b/echo
     message: 'The job id is: {__id}'
 
   - name: output_value
-    type: echo
+    type: b/echo
     message: 'The current value is: {__value}'
 
   - name: parse
-    type: deserialize/json
+    type: b/deserialize/json
 
   - name: convert
-    type: serialize/yaml
+    type: b/serialize/yaml
 
   - name: write
-    type: io/write
+    type: b/io/write
     path: '{output_file}'
 
 steps:

@@ -24,14 +24,14 @@ module Burner
       #     jobs: [
       #       {
       #         name: 'set',
-      #         type: 'set_value',
+      #         type: 'b/set_value',
       #         value: [
       #           [1, 'funky']
       #         ]
       #       },
       #       {
       #         name: 'map',
-      #         type: 'collection/objects_to_arrays',
+      #         type: 'b/collection/objects_to_arrays',
       #         mappings: [
       #           { index: 0, key: 'id' },
       #           { index: 1, key: 'name' }
@@ -39,7 +39,7 @@ module Burner
       #       },
       #       {
       #         name: 'output',
-      #         type: 'echo',
+      #         type: 'b/echo',
       #         message: 'value is currently: {__value}'
       #       },
       #

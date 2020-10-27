@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.summary     = 'Declarative and extendable processing pipeline'
 
   s.description = <<-DESCRIPTION
-    This library serves as the skeleton for a processing engine.  It allows you to organize your code into Jobs, then stitch those jobs together as steps.
+    This library serves as the backbone for a configurable processing engine.  It allows you to organize your code into jobs, then stitch those jobs together as steps.
   DESCRIPTION
 
   s.authors     = ['Matthew Ruggio']

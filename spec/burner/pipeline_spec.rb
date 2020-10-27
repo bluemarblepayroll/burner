@@ -99,7 +99,7 @@ describe Burner::Pipeline do
           { name: :nothing1 },
           {
             name: :check,
-            type: 'io/exist',
+            type: 'b/io/exist',
             short_circuit: true,
             path: 'does_not_exist_123.t'
           },
@@ -121,30 +121,30 @@ describe Burner::Pipeline do
         jobs: [
           {
             name: :read,
-            type: 'io/read',
+            type: 'b/io/read',
             path: '{input_file}'
           },
           {
             name: :output_id,
-            type: :echo,
+            type: 'b/echo',
             message: 'The job id is: {__id}'
           },
           {
             name: :output_value,
-            type: :echo,
+            type: 'b/echo',
             message: 'The current value is: {__value}'
           },
           {
             name: :parse,
-            type: 'deserialize/json'
+            type: 'b/deserialize/json'
           },
           {
             name: :convert,
-            type: 'serialize/yaml'
+            type: 'b/serialize/yaml'
           },
           {
             name: :write,
-            type: 'io/write',
+            type: 'b/io/write',
             path: '{output_file}'
           }
         ],
@@ -178,33 +178,33 @@ describe Burner::Pipeline do
         jobs: [
           {
             name: :read,
-            type: 'io/read',
+            type: 'b/io/read',
             path: '{input_file}',
             register: register
           },
           {
             name: :output_id,
-            type: :echo,
+            type: 'b/echo',
             message: 'The job id is: {__id}'
           },
           {
             name: :output_value,
-            type: :echo,
+            type: 'b/echo',
             message: 'The current value is: {__value}'
           },
           {
             name: :parse,
-            type: :parse_csv,
+            type: 'parse_csv',
             register: register
           },
           {
             name: :convert,
-            type: 'serialize/yaml',
+            type: 'b/serialize/yaml',
             register: register
           },
           {
             name: :write,
-            type: 'io/write',
+            type: 'b/io/write',
             path: '{output_file}',
             register: register
           }
@@ -251,7 +251,7 @@ describe Burner::Pipeline do
         jobs: [
           {
             name: 'set',
-            type: 'set_value',
+            type: 'b/set_value',
             value: [
               [1, 'funky']
             ],
@@ -259,7 +259,7 @@ describe Burner::Pipeline do
           },
           {
             name: 'map',
-            type: 'collection/arrays_to_objects',
+            type: 'b/collection/arrays_to_objects',
             mappings: [
               { index: 0, key: 'id' },
               { index: 1, key: 'name' }
@@ -268,7 +268,7 @@ describe Burner::Pipeline do
           },
           {
             name: 'output',
-            type: 'echo',
+            type: 'b/echo',
             message: 'value is currently: {__value}'
           },
 
@@ -291,7 +291,7 @@ describe Burner::Pipeline do
         jobs: [
           {
             name: 'set',
-            type: 'set_value',
+            type: 'b/set_value',
             value: [
               { 'id' => 1, 'name' => 'funky' }
             ],
@@ -299,7 +299,7 @@ describe Burner::Pipeline do
           },
           {
             name: 'map',
-            type: 'collection/objects_to_arrays',
+            type: 'b/collection/objects_to_arrays',
             mappings: [
               { index: 0, key: 'id' },
               { index: 1, key: 'name' }
@@ -308,7 +308,7 @@ describe Burner::Pipeline do
           },
           {
             name: 'output',
-            type: 'echo',
+            type: 'b/echo',
             message: 'value is currently: {__value}'
           },
 

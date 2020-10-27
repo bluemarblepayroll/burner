@@ -30,7 +30,7 @@ module Burner
     register 'b/collection/transform',         Library::Collection::Transform
     register 'b/collection/unpivot',           Library::Collection::Unpivot
     register 'b/collection/values',            Library::Collection::Values
-    register 'b/collection/validate',          Library::Collection::Values
+    register 'b/collection/validate',          Library::Collection::Validate
 
     register 'b/deserialize/csv',              Library::Deserialize::Csv
     register 'b/deserialize/json',             Library::Deserialize::Json

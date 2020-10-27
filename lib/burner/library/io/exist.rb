@@ -15,7 +15,7 @@ module Burner
       # Check to see if a file exists.  If short_circuit is set to true and the file
       # does not exist then the job will return false and short circuit the pipeline.
       #
-      # Note: this does not use Payload#value.
+      # Note: this does not use Payload#registers.
       class Exist < Job
         attr_reader :path, :short_circuit
 

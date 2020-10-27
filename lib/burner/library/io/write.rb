@@ -14,8 +14,8 @@ module Burner
     module IO
       # Write value to disk.
       #
-      # Expected Payload#value input: anything.
-      # Payload#value output: whatever was passed in.
+      # Expected Payload[register] input: anything.
+      # Payload[register] output: whatever was passed in.
       class Write < Base
         attr_reader :binary
 

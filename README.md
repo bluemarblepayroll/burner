@@ -262,8 +262,8 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 
 #### General
 
-* **b/dummy** []: Do nothing
 * **b/echo** [message]: Write a message to the output.  The message parameter can be interpolated using  `Payload#params`.
+* **b/nothing** []: Do nothing.
 * **b/set** [register, value]: Set the value to any arbitrary value.
 * **b/sleep** [seconds]: Sleep the thread for X number of seconds.
 

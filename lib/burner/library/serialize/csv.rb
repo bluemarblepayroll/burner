@@ -12,8 +12,8 @@ module Burner
     module Serialize
       # Take an array of arrays and create a CSV.
       #
-      # Expected Payload#value input: array of arrays.
-      # Payload#value output: a serialized CSV string.
+      # Expected Payload[register] input: array of arrays.
+      # Payload[register] output: a serialized CSV string.
       class Csv < JobWithRegister
         def perform(_output, payload)
           payload[register] = CSV.generate(options) do |csv|

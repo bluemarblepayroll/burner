@@ -9,6 +9,11 @@
 
 require_relative 'job_with_register'
 
+require_relative 'library/echo'
+require_relative 'library/nothing'
+require_relative 'library/set_value'
+require_relative 'library/sleep'
+
 require_relative 'library/collection/arrays_to_objects'
 require_relative 'library/collection/graph'
 require_relative 'library/collection/objects_to_arrays'
@@ -17,16 +22,15 @@ require_relative 'library/collection/transform'
 require_relative 'library/collection/unpivot'
 require_relative 'library/collection/validate'
 require_relative 'library/collection/values'
+
 require_relative 'library/deserialize/csv'
 require_relative 'library/deserialize/json'
 require_relative 'library/deserialize/yaml'
-require_relative 'library/dummy'
-require_relative 'library/echo'
+
 require_relative 'library/io/exist'
 require_relative 'library/io/read'
 require_relative 'library/io/write'
+
 require_relative 'library/serialize/csv'
 require_relative 'library/serialize/json'
 require_relative 'library/serialize/yaml'
-require_relative 'library/set_value'
-require_relative 'library/sleep'

@@ -16,10 +16,10 @@ module Burner
   class Jobs
     acts_as_hashable_factory
 
-    # Dummy is the default as noted by the ''.  This means if a type is omitted, nil, or blank
-    # string then the dummy job will be used.
-    register 'b/dummy', '',                    Library::Dummy
+    # Nothing is the default as noted by the ''.  This means if a type is omitted, nil, or blank
+    # string then the nothing job will be used.
     register 'b/echo',                         Library::Echo
+    register 'b/nothing', '',                  Library::Nothing
     register 'b/set_value',                    Library::SetValue
     register 'b/sleep',                        Library::Sleep
 

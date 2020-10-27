@@ -11,7 +11,7 @@ module Burner
   module Library
     # Arbitrarily put thread to sleep for X number of seconds
     #
-    # Payload#value output: whatever value was specified in this job.
+    # Note: this does not use Payload#registers.
     class Sleep < Job
       attr_reader :seconds
 

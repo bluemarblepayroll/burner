@@ -12,8 +12,8 @@ module Burner
     module Serialize
       # Treat value like a Ruby object and serialize it using YAML.
       #
-      # Expected Payload#value input: anything.
-      # Payload#value output: string representing the output of the YAML serializer.
+      # Expected Payload[register] input: anything.
+      # Payload[register] output: string representing the output of the YAML serializer.
       class Yaml < JobWithRegister
         def perform(_output, payload)
           payload[register] = payload[register].to_yaml

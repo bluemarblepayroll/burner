@@ -31,10 +31,11 @@ module Burner
     # The #perform method takes in two arguments: output (an instance of Burner::Output)
     # and payload (an instance of Burner::Payload).  Jobs can leverage output to emit
     # information to the pipeline's log(s).  The payload is utilized to pass data from job to job,
-    # with its most important attribute being #value.  The value attribute is mutable
-    # per the individual job's context (meaning of it is unknown without understanding a job's
-    # input and output value of #value.).  Therefore #value can mean anything and it is up to the
-    # engineers to clearly document the assumptions of its use.
+    # with its most important attribute being #registers.  The registers attribute is a mutable
+    # and accessible hash per the individual job's context
+    # (meaning of it is unknown without understanding a job's input and output value
+    # of #registers.).  Therefore #register key values can mean anything
+    # and it is up to consumers to clearly document the assumptions of its use.
     #
     # Returning false will short-circuit the pipeline right after the job method exits.
     # Returning anything else besides false just means "continue".
@@ -47,9 +48,15 @@ module Burner
     protected
 
     def job_string_template(expression, output, payload)
-      templatable_params = payload.params.merge(__id: output.id, __value: payload[''])
+      templatable_params = payload.params
+                                  .merge(__id: output.id)
+                                  .merge(templatable_register_values(payload))
 
       Util::StringTemplate.instance.evaluate(expression, templatable_params)
+    end
+
+    def templatable_register_values(payload)
+      payload.registers.transform_keys { |key| "__#{key}_register" }
     end
   end
 end

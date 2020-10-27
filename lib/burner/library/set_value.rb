@@ -11,8 +11,8 @@ module Burner
   module Library
     # Arbitrarily set value
     #
-    # Expected Payload#value input: anything.
-    # Payload#value output: whatever value was specified in this job.
+    # Expected Payload[register] input: anything.
+    # Payload[register] output: whatever value was specified in this job.
     class SetValue < JobWithRegister
       attr_reader :value
 

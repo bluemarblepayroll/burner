@@ -11,8 +11,8 @@ module Burner
   module Library
     # Do nothing.
     #
-    # Note: this does not use Payload#value.
-    class Dummy < Job
+    # Note: this does not use Payload#registers.
+    class Nothing < Job
       def perform(_output, _payload); end
     end
   end

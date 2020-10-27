@@ -14,8 +14,8 @@ module Burner
       # If include_keys is true (it is false by default), then call #keys on the first
       # object and inject that as a "header" object.
       #
-      # Expected Payload#value input: array of objects.
-      # Payload#value output: An array of arrays.
+      # Expected Payload[register] input: array of objects.
+      # Payload[register] output: An array of arrays.
       class Values < JobWithRegister
         attr_reader :include_keys
 

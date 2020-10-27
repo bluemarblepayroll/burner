@@ -15,8 +15,8 @@ module Burner
       # YAML.  If you wish to ease this restriction, for example if you have custom serialization
       # for custom classes, then you can pass in safe: false.
       #
-      # Expected Payload#value input: string of YAML data.
-      # Payload#value output: anything as specified by the YAML de-serializer.
+      # Expected Payload[register] input: string of YAML data.
+      # Payload[register]output: anything as specified by the YAML de-serializer.
       class Yaml < JobWithRegister
         attr_reader :safe
 

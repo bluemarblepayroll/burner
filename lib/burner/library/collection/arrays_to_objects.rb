@@ -14,8 +14,8 @@ module Burner
       # Burner::Modeling::KeyIndexMapping instances or hashable configurations which specifies
       # the index-to-key mappings to use.
       #
-      # Expected Payload#value input: array of arrays.
-      # Payload#value output: An array of hashes.
+      # Expected Payload[register] input: array of arrays.
+      # Payload[register] output: An array of hashes.
       #
       # An example using a configuration-first pipeline:
       #
@@ -47,6 +47,11 @@ module Burner
       #   }
       #
       #   Burner::Pipeline.make(config).execute
+      #
+      # Given the above example, the expected output would be:
+      #  [
+      #    { 'id' => 1, 'name' => 'funky' }
+      #  ]
       class ArraysToObjects < JobWithRegister
         attr_reader :mappings
 

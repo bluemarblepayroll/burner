@@ -14,8 +14,8 @@ module Burner
       # attribute.  The initial use case for this was to remove "header" rows from arrays,
       # like you would expect when parsing CSV files.
       #
-      # Expected Payload#value input: nothing.
-      # Payload#value output: An array with N beginning elements removed.
+      # Expected Payload[register] input: nothing.
+      # Payload[register] output: An array with N beginning elements removed.
       class Shift < JobWithRegister
         DEFAULT_AMOUNT = 0
 

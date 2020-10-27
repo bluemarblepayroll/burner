@@ -18,8 +18,8 @@ module Burner
       # For more information on the specific contract for attributes, see the
       # Burner::Modeling::Attribute class.
       #
-      # Expected Payload#value input: array of objects.
-      # Payload#value output: An array of objects.
+      # Expected Payload[register] input: array of objects.
+      # Payload[register] output: An array of objects.
       class Transform < JobWithRegister
         BLANK = ''
 

@@ -15,39 +15,41 @@ module Burner
       # Burner::Modeling::KeyIndexMapping instances or hashable configurations which specifies
       # the key-to-index mappings to use.
       #
-      # Expected Payload#value input: array of hashes.
-      # Payload#value output: An array of arrays.
+      # Expected Payload[register] input: array of hashes.
+      # Payload[register] output: An array of arrays.
       #
       # An example using a configuration-first pipeline:
       #
-      #   config = {
-      #     jobs: [
-      #       {
-      #         name: 'set',
-      #         type: 'b/set_value',
-      #         value: [
-      #           [1, 'funky']
-      #         ]
-      #       },
-      #       {
-      #         name: 'map',
-      #         type: 'b/collection/objects_to_arrays',
-      #         mappings: [
-      #           { index: 0, key: 'id' },
-      #           { index: 1, key: 'name' }
-      #         ]
-      #       },
-      #       {
-      #         name: 'output',
-      #         type: 'b/echo',
-      #         message: 'value is currently: {__value}'
-      #       },
+      #  config = {
+      #    jobs: [
+      #      {
+      #        name: 'set',
+      #        type: 'b/set_value',
+      #        value: [
+      #          { 'id' => 1, 'name' => 'funky' }
+      #        ],
+      #        register: register
+      #      },
+      #      {
+      #        name: 'map',
+      #        type: 'b/collection/objects_to_arrays',
+      #        mappings: [
+      #          { index: 0, key: 'id' },
+      #          { index: 1, key: 'name' }
+      #        ],
+      #        register: register
+      #      },
+      #      {
+      #        name: 'output',
+      #        type: 'b/echo',
+      #        message: 'value is currently: {__value}'
+      #      },
       #
-      #     ],
-      #     steps: %w[set map output]
-      #   }
+      #    ],
+      #    steps: %w[set map output]
+      #  }
       #
-      #   Burner::Pipeline.make(config).execute
+      #  Burner::Pipeline.make(config).execute
       class ObjectsToArrays < JobWithRegister
         attr_reader :mappings
 

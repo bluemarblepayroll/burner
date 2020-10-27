@@ -14,8 +14,8 @@ module Burner
       # Under the hood it uses HashMath's Unpivot class:
       # https://github.com/bluemarblepayroll/hash_math
       #
-      # Expected Payload#value input: array of objects.
-      # Payload#value output: An array of objects.
+      # Expected Payload[register] input: array of objects.
+      # Payload[register] output: An array of objects.
       class Unpivot < JobWithRegister
         attr_reader :unpivot
 

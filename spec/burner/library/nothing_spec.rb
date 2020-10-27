@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Library::Dummy do
+describe Burner::Library::Nothing do
   let(:payload) { Burner::Payload.new }
 
   subject { described_class.make(name: 'test') }

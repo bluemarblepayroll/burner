@@ -13,8 +13,8 @@ module Burner
       # Take an array of (denormalized) objects and create an object hierarchy from them.
       # Under the hood it uses Hashematics: https://github.com/bluemarblepayroll/hashematics.
       #
-      # Expected Payload#value input: array of objects.
-      # Payload#value output: An array of objects.
+      # Expected Payload[register] input: array of objects.
+      # Payload[register] output: An array of objects.
       class Graph < JobWithRegister
         attr_reader :key, :groups
 

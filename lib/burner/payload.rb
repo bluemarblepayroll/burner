@@ -8,16 +8,22 @@
 #
 
 module Burner
-  # The input for all Job#perform methods.  The main notion of this object is its "value"
-  # attribute.  This is dynamic and weak on purpose and is subject to whatever the Job#perform
-  # methods decides it is.  This definitely adds an order-of-magnitude complexity to this whole
-  # library and lifecycle, but I am not sure there is any other way around it: trying to build
-  # a generic, open-ended object pipeline to serve almost any use case.
+  # The input for all Job#perform methods.  The main notion of this object is its 'registers'
+  # attribute.  This registers attribute is a key-indifferent hash, accessible on Payload using
+  # the brackets setter and getter methods.  This is dynamic and weak on purpose and is subject
+  # to whatever the Job#perform methods decides it is.  This definitely adds an order-of-magnitude
+  # complexity to this whole library and lifecycle, but I am not sure there is any other way
+  # around it: trying to build a generic, open-ended processing pipeline to serve almost
+  # any use case.
   #
   # The side_effects attribute can also be utilized as a way for jobs to emit any data in a more
   # structured/additive manner.  The initial use case for this was for Burner's core IO jobs to
   # report back the files it has written in a more structured data way (as opposed to simply
   # writing some information to the output.)
+  #
+  # The 'time' attribute is important in that it should for the replaying of pipelines and jobs.
+  # Instead of having job's utilizing Time.now, Date.today, etc... they should rather opt to
+  # use this value instead.
   class Payload
     attr_reader :params,
                 :registers,

@@ -12,8 +12,8 @@ module Burner
     module Serialize
       # Treat value like a Ruby object and serialize it using JSON.
       #
-      # Expected Payload#value input: anything.
-      # Payload#value output: string representing the output of the JSON serializer.
+      # Expected Payload[register] input: anything.
+      # Payload[register] output: string representing the output of the JSON serializer.
       class Json < JobWithRegister
         def perform(_output, payload)
           payload[register] = payload[register].to_json

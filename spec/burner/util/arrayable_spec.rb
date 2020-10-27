@@ -10,13 +10,13 @@
 require 'spec_helper'
 
 describe Burner::Util::Arrayable do
-  let(:dummy_class) { Class.new { extend Burner::Util::Arrayable } }
+  let(:nothing_class) { Class.new { extend Burner::Util::Arrayable } }
 
   describe '#array' do
     it 'should preserve a hash' do
       value = { abc: :def }
 
-      actual = dummy_class.array(value)
+      actual = nothing_class.array(value)
 
       expect(actual).to eq([value])
     end
@@ -24,7 +24,7 @@ describe Burner::Util::Arrayable do
     it 'treats arrays as arrays' do
       value = [{ abc: :def }]
 
-      actual = dummy_class.array(value)
+      actual = nothing_class.array(value)
 
       expect(actual).to eq(value)
     end
@@ -32,7 +32,7 @@ describe Burner::Util::Arrayable do
     it 'treats nil as empty array' do
       value = nil
 
-      actual = dummy_class.array(value)
+      actual = nothing_class.array(value)
 
       expect(actual).to eq([])
     end

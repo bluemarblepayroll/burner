@@ -12,8 +12,8 @@ module Burner
     module Deserialize
       # Take a CSV string and de-serialize into object(s).
       #
-      # Expected Payload#value input: nothing.
-      # Payload#value output: an array of arrays.  Each inner array represents one data row.
+      # Expected Payload[register] input: nothing.
+      # Payload[register] output: an array of arrays.  Each inner array represents one data row.
       class Csv < JobWithRegister
         # This currently only supports returning an array of arrays, including the header row.
         # In the future this could be extended to offer more customizable options, such as

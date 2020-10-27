@@ -10,7 +10,9 @@
 module Burner
   module Modeling
     # Defines a top-level key and the associated transformers for deriving the final value
-    # to set the key to.
+    # to set the key to.  The transformers that can be passed in can be any Realize::Transformers
+    # subclasses.  For more information, see the Realize library at:
+    # https://github.com/bluemarblepayroll/realize
     class Attribute
       acts_as_hashable
 

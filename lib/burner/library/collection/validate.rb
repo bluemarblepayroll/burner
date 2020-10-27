@@ -14,8 +14,9 @@ module Burner
       # of validations.  The main register will include the valid objects and the invalid_register
       # will contain the invalid objects.
       #
-      # Expected Payload#value input: array of objects.
-      # Payload#value output: An array of objects.
+      # Expected Payload[register] input: array of objects.
+      # Payload[register] output: An array of objects that are valid.
+      # Payload[invalid_register] output: An array of objects that are invalid.
       class Validate < JobWithRegister
         DEFAULT_INVALID_REGISTER = 'invalid'
         DEFAULT_JOIN_CHAR        = ', '

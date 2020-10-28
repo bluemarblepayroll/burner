@@ -261,12 +261,15 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 * **b/serialize/json** [register]: Convert value to JSON.
 * **b/serialize/yaml** [register]: Convert value to YAML.
 
+#### Value
+
+* **b/value/copy** [from_register, to_register]: Copy from_register's value into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
+* **b/value/static** [register, value]: Set the value to any arbitrary value.
+
 #### General
 
-* **b/copy** [from_register, to_register]: Copy from_register's value into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
 * **b/echo** [message]: Write a message to the output.  The message parameter can be interpolated using  `Payload#params`.
 * **b/nothing** []: Do nothing.
-* **b/set** [register, value]: Set the value to any arbitrary value.
 * **b/sleep** [seconds]: Sleep the thread for X number of seconds.
 
 Notes:

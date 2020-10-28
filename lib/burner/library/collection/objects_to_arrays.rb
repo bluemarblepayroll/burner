@@ -24,7 +24,7 @@ module Burner
       #    jobs: [
       #      {
       #        name: 'set',
-      #        type: 'b/set_value',
+      #        type: 'b/value/static',
       #        value: [
       #          { 'id' => 1, 'name' => 'funky' }
       #        ],

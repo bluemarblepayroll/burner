@@ -251,7 +251,7 @@ describe Burner::Pipeline do
         jobs: [
           {
             name: 'set',
-            type: 'b/set_value',
+            type: 'b/value/static',
             value: [
               [1, 'funky']
             ],
@@ -291,7 +291,7 @@ describe Burner::Pipeline do
         jobs: [
           {
             name: 'set',
-            type: 'b/set_value',
+            type: 'b/value/static',
             value: [
               { 'id' => 1, 'name' => 'funky' }
             ],

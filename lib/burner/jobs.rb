@@ -18,10 +18,8 @@ module Burner
 
     # Nothing is the default as noted by the ''.  This means if a type is omitted, nil, or blank
     # string then the nothing job will be used.
-    register 'b/copy',                         Library::Copy
     register 'b/echo',                         Library::Echo
     register 'b/nothing', '',                  Library::Nothing
-    register 'b/set_value',                    Library::SetValue
     register 'b/sleep',                        Library::Sleep
 
     register 'b/collection/arrays_to_objects', Library::Collection::ArraysToObjects
@@ -45,5 +43,8 @@ module Burner
     register 'b/serialize/csv',                Library::Serialize::Csv
     register 'b/serialize/json',               Library::Serialize::Json
     register 'b/serialize/yaml',               Library::Serialize::Yaml
+
+    register 'b/value/copy',                   Library::Value::Copy
+    register 'b/value/static',                 Library::Value::Static
   end
 end

@@ -9,10 +9,8 @@
 
 require_relative 'job_with_register'
 
-require_relative 'library/copy'
 require_relative 'library/echo'
 require_relative 'library/nothing'
-require_relative 'library/set_value'
 require_relative 'library/sleep'
 
 require_relative 'library/collection/arrays_to_objects'
@@ -36,3 +34,6 @@ require_relative 'library/io/write'
 require_relative 'library/serialize/csv'
 require_relative 'library/serialize/json'
 require_relative 'library/serialize/yaml'
+
+require_relative 'library/value/copy'
+require_relative 'library/value/static'

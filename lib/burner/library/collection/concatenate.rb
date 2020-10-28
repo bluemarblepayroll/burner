@@ -27,7 +27,9 @@ module Burner
           freeze
         end
 
-        def perform(_output, payload)
+        def perform(output, payload)
+          output.detail("Concatenating registers: '#{from_registers}' to: '#{to_register}'")
+
           payload[to_register] = from_registers.each_with_object([]) do |from_register, memo|
             from_register_value = array(payload[from_register])
 

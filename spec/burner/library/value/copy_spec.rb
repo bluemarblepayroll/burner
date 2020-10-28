@@ -9,7 +9,7 @@
 
 require 'spec_helper'
 
-describe Burner::Library::Copy do
+describe Burner::Library::Value::Copy do
   let(:value)         { 'Some Random Value' }
   let(:string_out)    { StringOut.new }
   let(:output)        { Burner::Output.new(outs: string_out) }

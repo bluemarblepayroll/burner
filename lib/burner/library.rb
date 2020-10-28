@@ -9,12 +9,14 @@
 
 require_relative 'job_with_register'
 
+require_relative 'library/copy'
 require_relative 'library/echo'
 require_relative 'library/nothing'
 require_relative 'library/set_value'
 require_relative 'library/sleep'
 
 require_relative 'library/collection/arrays_to_objects'
+require_relative 'library/collection/concatenate'
 require_relative 'library/collection/graph'
 require_relative 'library/collection/objects_to_arrays'
 require_relative 'library/collection/shift'

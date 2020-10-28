@@ -234,6 +234,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 #### Collection
 
 * **b/collection/arrays_to_objects** [mappings, register]: Convert an array of arrays to an array of objects.
+* **b/collection/concatenate** [from_registers, to_register]: Concatenate each from_register's value and place the newly concatenated array into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
 * **b/collection/graph** [config, key, register]: Use [Hashematics](https://github.com/bluemarblepayroll/hashematics) to turn a flat array of objects into a deeply nested object tree.
 * **b/collection/objects_to_arrays** [mappings, register]: Convert an array of objects to an array of arrays.
 * **b/collection/shift** [amount, register]: Remove the first N number of elements from an array.
@@ -262,6 +263,7 @@ This library only ships with very basic, rudimentary jobs that are meant to just
 
 #### General
 
+* **b/copy** [from_register, to_register]: Copy from_register's value into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
 * **b/echo** [message]: Write a message to the output.  The message parameter can be interpolated using  `Payload#params`.
 * **b/nothing** []: Do nothing.
 * **b/set** [register, value]: Set the value to any arbitrary value.

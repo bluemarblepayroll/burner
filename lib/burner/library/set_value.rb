@@ -9,7 +9,7 @@
 
 module Burner
   module Library
-    # Arbitrarily set value
+    # Arbitrarily set the value of a register.
     #
     # Expected Payload[register] input: anything.
     # Payload[register] output: whatever value was specified in this job.

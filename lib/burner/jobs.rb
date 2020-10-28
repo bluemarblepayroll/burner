@@ -18,12 +18,14 @@ module Burner
 
     # Nothing is the default as noted by the ''.  This means if a type is omitted, nil, or blank
     # string then the nothing job will be used.
+    register 'b/copy',                         Library::Copy
     register 'b/echo',                         Library::Echo
     register 'b/nothing', '',                  Library::Nothing
     register 'b/set_value',                    Library::SetValue
     register 'b/sleep',                        Library::Sleep
 
     register 'b/collection/arrays_to_objects', Library::Collection::ArraysToObjects
+    register 'b/collection/concatenate',       Library::Collection::Concatenate
     register 'b/collection/graph',             Library::Collection::Graph
     register 'b/collection/objects_to_arrays', Library::Collection::ObjectsToArrays
     register 'b/collection/shift',             Library::Collection::Shift

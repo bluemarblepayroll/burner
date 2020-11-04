@@ -16,8 +16,12 @@ module Burner
       class Blank < Base
         acts_as_hashable
 
+        BLANK_RE = /\A[[:space:]]*\z/.freeze
+
         def valid?(object, resolver)
-          resolver.get(object, key).to_s.empty?
+          value = resolver.get(object, key).to_s
+
+          value.empty? || BLANK_RE.match?(value)
         end
 
         private

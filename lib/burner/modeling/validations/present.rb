@@ -7,17 +7,17 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'base'
+require_relative 'blank'
 
 module Burner
   module Modeling
     class Validations
       # Check if a value is present.  If it is blank (null or empty) then it is invalid.
-      class Present < Base
+      class Present < Blank
         acts_as_hashable
 
         def valid?(object_value, resolver)
-          !resolver.get(object_value, key).to_s.empty?
+          !super(object_value, resolver)
         end
 
         private

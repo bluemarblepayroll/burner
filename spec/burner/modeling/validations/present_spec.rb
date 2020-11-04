@@ -17,17 +17,20 @@ describe Burner::Modeling::Validations::Present do
   subject { described_class.new(key: key, message: message) }
 
   describe '#valid?' do
-    it 'returns false when empty string' do
-      actual = subject.valid?({ name: '' }, resolver)
+    {
+      'nil' => nil,
+      '' => '',
+      'space' => ' ',
+      'tab' => "\t",
+      'newline' => "\n",
+      'carriage return and newline' => "\r\n",
+      'unicode whitespace' => "\u00a0"
+    }.each do |name, value|
+      it "returns false when #{name}" do
+        actual = subject.valid?({ name: value }, resolver)
 
-      expect(actual).to be false
-    end
-
-    it 'returns false when nil' do
-      record = { name: nil }
-      actual = subject.valid?(record, resolver)
-
-      expect(actual).to be false
+        expect(actual).to be false
+      end
     end
 
     it 'returns true when populated string' do

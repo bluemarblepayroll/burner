@@ -19,7 +19,7 @@ module Burner
       class Read < Base
         attr_reader :binary
 
-        def initialize(name:, path:, binary: false, register: '')
+        def initialize(name:, path:, binary: false, register: DEFAULT_REGISTER)
           super(name: name, path: path, register: register)
 
           @binary = binary || false

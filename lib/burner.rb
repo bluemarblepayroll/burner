@@ -29,3 +29,9 @@ require_relative 'burner/util'
 
 # Main Entrypoint(s)
 require_relative 'burner/cli'
+
+# Top-level namespace
+module Burner
+  # All jobs that need to reference the main register should use this constant.
+  DEFAULT_REGISTER = 'default'
+end

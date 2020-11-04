@@ -14,7 +14,7 @@ module Burner
       class Base < JobWithRegister
         attr_reader :path
 
-        def initialize(name:, path:, register: '')
+        def initialize(name:, path:, register: DEFAULT_REGISTER)
           super(name: name, register: register)
 
           raise ArgumentError, 'path is required' if path.to_s.empty?

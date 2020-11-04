@@ -12,14 +12,14 @@ module Burner
     module Value
       # Copy one value in a register to another.  Note that this does *not* perform any type of
       # deep copy, it simply points one register's value to another.  If you decide to later mutate
-      # one register, you are *not* guaranteed to not mutate the other.
+      # one register then you may mutate the other.
       #
       # Expected Payload[from_register] input: anything.
       # Payload[to_register] output: whatever value was specified in the from_register.
       class Copy < Job
         attr_reader :from_register, :to_register
 
-        def initialize(name:, to_register: '', from_register: '')
+        def initialize(name:, to_register: DEFAULT_REGISTER, from_register: DEFAULT_REGISTER)
           super(name: name)
 
           @from_register = from_register.to_s

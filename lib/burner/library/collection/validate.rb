@@ -33,7 +33,7 @@ module Burner
           invalid_register: DEFAULT_INVALID_REGISTER,
           join_char: DEFAULT_JOIN_CHAR,
           message_key: DEFAULT_MESSAGE_KEY,
-          register: '',
+          register: DEFAULT_REGISTER,
           separator: '',
           validations: []
         )

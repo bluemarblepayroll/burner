@@ -19,7 +19,11 @@ module Burner
       class Unpivot < JobWithRegister
         attr_reader :unpivot
 
-        def initialize(name:, pivot_set: HashMath::Unpivot::PivotSet.new, register: '')
+        def initialize(
+          name:,
+          pivot_set: HashMath::Unpivot::PivotSet.new,
+          register: DEFAULT_REGISTER
+        )
           super(name: name, register: register)
 
           @unpivot = HashMath::Unpivot.new(pivot_set)

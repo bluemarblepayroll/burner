@@ -27,7 +27,13 @@ module Burner
                     :exclusive,
                     :resolver
 
-        def initialize(name:, attributes: [], exclusive: false, register: '', separator: BLANK)
+        def initialize(
+          name:,
+          attributes: [],
+          exclusive: false,
+          register: DEFAULT_REGISTER,
+          separator: BLANK
+        )
           super(name: name, register: register)
 
           @resolver  = Objectable.resolver(separator: separator)

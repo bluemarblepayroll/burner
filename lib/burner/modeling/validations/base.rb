@@ -27,7 +27,7 @@ module Burner
         end
 
         def message
-          @message.to_s.empty? ? "#{key}#{default_message}" : @message.to_s
+          @message.to_s.empty? ? "#{key} #{default_message}" : @message.to_s
         end
       end
     end

@@ -23,7 +23,7 @@ module Burner
         private
 
         def default_message
-          ' is required'
+          'is required'
         end
       end
     end

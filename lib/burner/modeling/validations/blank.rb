@@ -23,7 +23,7 @@ module Burner
         private
 
         def default_message
-          ' must be blank'
+          'must be blank'
         end
       end
     end

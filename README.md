@@ -278,6 +278,8 @@ Notes:
 
 ### Adding & Registering Jobs
 
+Note: Jobs have to be registered with a type in the Burner::Jobs factory.  All jobs that ship with this library are prefixed with `b/` in their type in order to provide a namespace for 'burner-specific' jobs vs. externally provided jobs.
+
 Where this library shines is when additional jobs are plugged in.  Burner uses its `Burner::Jobs` class as its class-level registry built with [acts_as_hashable](https://github.com/bluemarblepayroll/acts_as_hashable)'s acts_as_hashable_factory directive.
 
 Let's say we would like to register a job to parse a CSV:

@@ -13,12 +13,14 @@ module Burner
       # Take a register's value (an array of objects) and group the objects by the specified keys.
       # It essentially creates a hash from an array. This is useful for creating a O(1) lookup
       # which can then be used in conjunction with the Coalesce Job for another array of data.
+      # It is worth noting that the resulting hashes values are singular objects and not an array
+      # like Ruby's Enumerable#group_by method.
       #
       # An example of this specific job:
       #
       # input: [{ id: 1, code: 'a' }, { id: 2, code: 'b' }]
       # keys: [:code]
-      # output: { 'a' => { id: 1, code: 'a' }, 'b' => { id: 2, code: 'b' } }
+      # output: { ['a'] => { id: 1, code: 'a' }, ['b'] => { id: 2, code: 'b' } }
       #
       # Expected Payload[register] input: array of objects.
       # Payload[register] output: hash.

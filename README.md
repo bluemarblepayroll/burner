@@ -98,32 +98,13 @@ Some notes:
 By default, output will be emitted to `$stdout`.  You can add or change listeners by passing in optional values into Pipeline#execute.  For example, say we wanted to capture the output from our json-to-yaml example:
 
 ````ruby
-class StringOut
-  def initialize
-    @io = StringIO.new
-  end
-
-  def puts(msg)
-    tap { io.write("#{msg}\n") }
-  end
-
-  def read
-    io.rewind
-    io.read
-  end
-
-  private
-
-  attr_reader :io
-end
-
-string_out = StringOut.new
-output     = Burner::Output.new(outs: string_out)
-payload    = Burner::Payload.new(params: params)
+io      = StringIO.new
+output  = Burner::Output.new(outs: io)
+payload = Burner::Payload.new(params: params)
 
 Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
 
-log = string_out.read
+log = io.string
 ````
 
 The value of `log` should now look similar to:

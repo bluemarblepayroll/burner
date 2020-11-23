@@ -20,8 +20,8 @@ Burner::Jobs.register('parse_csv', ParseCsv)
 
 describe Burner::Pipeline do
   let(:params)     { { name: 'Funky' } }
-  let(:string_out) { StringOut.new }
-  let(:output)     { Burner::Output.new(outs: string_out) }
+  let(:string_out) { StringIO.new }
+  let(:output)     { Burner::Output.new(outs: [string_out]) }
   let(:payload)    { Burner::Payload.new(params: params) }
   let(:register)   { 'register_a' }
 
@@ -83,22 +83,22 @@ describe Burner::Pipeline do
     it 'execute all steps' do
       subject.execute(output: output, payload: payload)
 
-      expect(string_out.read).to include('::nothing1')
-      expect(string_out.read).to include('::nothing2')
-      expect(string_out.read).to include('::nothing3')
+      expect(string_out.string).to include('::nothing1')
+      expect(string_out.string).to include('::nothing2')
+      expect(string_out.string).to include('::nothing3')
     end
 
     it 'outputs params' do
       subject.execute(output: output, payload: payload)
 
-      expect(string_out.read).to include('Parameters:')
+      expect(string_out.string).to include('Parameters:')
     end
 
     it 'does not output params' do
       subject.execute(output: output)
 
-      expect(string_out.read).not_to include('Parameters:')
-      expect(string_out.read).to     include('No parameters passed in.')
+      expect(string_out.string).not_to include('Parameters:')
+      expect(string_out.string).to     include('No parameters passed in.')
     end
 
     it 'short circuits when Payload#halt_pipeline? returns true' do
@@ -118,8 +118,8 @@ describe Burner::Pipeline do
 
       Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
 
-      expect(string_out.read).not_to include('nothing2')
-      expect(string_out.read).to     include('Payload was halted, ending pipeline.')
+      expect(string_out.string).not_to include('nothing2')
+      expect(string_out.string).to     include('Payload was halted, ending pipeline.')
     end
   end
 

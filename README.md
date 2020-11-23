@@ -91,6 +91,7 @@ Some notes:
 * The job's ID can be accessed using the `__id` key.
 * The current job's payload value can be accessed using the `__value` key.
 * Jobs can be re-used (just like the output_id and output_value jobs).
+* If steps is nil then all jobs will execute in their declared order.
 
 ### Capturing Feedback / Output
 

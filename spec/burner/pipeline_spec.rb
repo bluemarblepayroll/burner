@@ -53,6 +53,14 @@ describe Burner::Pipeline do
     end
   end
 
+  context 'when steps is not passed in (nil)' do
+    subject { described_class.make(jobs: jobs) }
+
+    it 'uses all declared jobs in their positional order.' do
+      expect(subject.steps.map(&:name)).to eq(steps.map(&:to_s))
+    end
+  end
+
   context 'when a step does not correspond to a job' do
     let(:jobs) do
       [
@@ -312,8 +320,7 @@ describe Burner::Pipeline do
             message: 'value is currently: {__value}'
           },
 
-        ],
-        steps: %w[set map output]
+        ]
       }
 
       payload = Burner::Payload.new

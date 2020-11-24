@@ -44,10 +44,6 @@ describe Burner::Library::Collection::Transform do
             key: 'dob',
             transformers: [
               {
-                type: 'r/value/resolve',
-                key: :dob
-              },
-              {
                 type: 'r/format/date',
                 input_format: '%m/%d/%Y'
               }
@@ -109,6 +105,7 @@ describe Burner::Library::Collection::Transform do
         [
           {
             key: 'first',
+            explicit: true,
             transformers: [
               {
                 type: 'r/value/resolve',
@@ -118,6 +115,7 @@ describe Burner::Library::Collection::Transform do
           },
           {
             key: 'last',
+            explicit: true,
             transformers: [
               {
                 type: 'r/value/resolve',

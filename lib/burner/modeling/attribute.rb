@@ -21,6 +21,8 @@ module Burner
     class Attribute
       acts_as_hashable
 
+      RESOLVE_TYPE = 'r/value/resolve'
+
       attr_reader :key, :transformers
 
       def initialize(key:, explicit: false, transformers: [])
@@ -34,15 +36,13 @@ module Burner
 
       private
 
+      # When explicit, this will return an empty array.
+      # When not explicit, this will return an array with a basic transformer that simply
+      # gets the key's value.  This establishes a good majority base case.
       def base_transformers(explicit)
         return [] if explicit
 
-        [
-          Realize::Transformers.make(
-            type: 'r/value/resolve',
-            key: @key
-          )
-        ]
+        [Realize::Transformers.make(type: RESOLVE_TYPE, key: key)]
       end
     end
   end

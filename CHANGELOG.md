@@ -1,4 +1,4 @@
-# 1.2.0 (TBD)
+# 1.2.0 (November 25th, 2020)
 
 #### Enhancements:
 

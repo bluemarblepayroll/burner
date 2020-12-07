@@ -19,8 +19,8 @@ module Burner
       class Read < Base
         attr_reader :binary
 
-        def initialize(name:, path:, binary: false, register: DEFAULT_REGISTER)
-          super(name: name, path: path, register: register)
+        def initialize(name:, path:, binary: false, disk: {}, register: DEFAULT_REGISTER)
+          super(disk: disk, name: name, path: path, register: register)
 
           @binary = binary || false
 
@@ -32,13 +32,7 @@ module Burner
 
           output.detail("Reading: #{compiled_path}")
 
-          payload[register] = File.open(compiled_path, mode, &:read)
-        end
-
-        private
-
-        def mode
-          binary ? 'rb' : 'r'
+          payload[register] = disk.read(compiled_path, binary: binary)
         end
       end
     end

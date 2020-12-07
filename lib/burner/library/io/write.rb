@@ -19,8 +19,8 @@ module Burner
       class Write < Base
         attr_reader :binary
 
-        def initialize(name:, path:, binary: false, register: DEFAULT_REGISTER)
-          super(name: name, path: path, register: register)
+        def initialize(name:, path:, binary: false, disk: {}, register: DEFAULT_REGISTER)
+          super(disk: disk, name: name, path: path, register: register)
 
           @binary = binary || false
 
@@ -28,41 +28,24 @@ module Burner
         end
 
         def perform(output, payload)
-          compiled_path = job_string_template(path, output, payload)
+          logical_filename  = job_string_template(path, output, payload)
+          physical_filename = nil
 
-          ensure_directory_exists(output, compiled_path)
-
-          output.detail("Writing: #{compiled_path}")
+          output.detail("Writing: #{logical_filename}")
 
           time_in_seconds = Benchmark.measure do
-            File.open(compiled_path, mode) { |io| io.write(payload[register]) }
+            physical_filename = disk.write(logical_filename, payload[register], binary: binary)
           end.real
 
+          output.detail("Wrote to: #{physical_filename}")
+
           side_effect = SideEffects::WrittenFile.new(
-            logical_filename: compiled_path,
-            physical_filename: compiled_path,
+            logical_filename: logical_filename,
+            physical_filename: physical_filename,
             time_in_seconds: time_in_seconds
           )
 
           payload.add_side_effect(side_effect)
-        end
-
-        private
-
-        def ensure_directory_exists(output, compiled_path)
-          dirname = File.dirname(compiled_path)
-
-          return if File.exist?(dirname)
-
-          output.detail("Outer directory does not exist, creating: #{dirname}")
-
-          FileUtils.mkdir_p(dirname)
-
-          nil
-        end
-
-        def mode
-          binary ? 'wb' : 'w'
         end
       end
     end

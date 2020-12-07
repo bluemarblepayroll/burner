@@ -12,13 +12,14 @@ module Burner
     module IO
       # Common configuration/code for all IO Job subclasses.
       class Base < JobWithRegister
-        attr_reader :path
+        attr_reader :disk, :path
 
-        def initialize(name:, path:, register: DEFAULT_REGISTER)
+        def initialize(name:, path:, disk: {}, register: DEFAULT_REGISTER)
           super(name: name, register: register)
 
           raise ArgumentError, 'path is required' if path.to_s.empty?
 
+          @disk = Disks.make(disk)
           @path = path.to_s
         end
       end

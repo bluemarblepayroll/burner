@@ -7,7 +7,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'base'
+require_relative 'open_file_base'
 
 module Burner
   module Library
@@ -16,17 +16,7 @@ module Burner
       #
       # Expected Payload[register] input: anything.
       # Payload[register] output: whatever was passed in.
-      class Write < Base
-        attr_reader :binary
-
-        def initialize(name:, path:, binary: false, disk: {}, register: DEFAULT_REGISTER)
-          super(disk: disk, name: name, path: path, register: register)
-
-          @binary = binary || false
-
-          freeze
-        end
-
+      class Write < OpenFileBase
         def perform(output, payload)
           logical_filename  = job_string_template(path, output, payload)
           physical_filename = nil

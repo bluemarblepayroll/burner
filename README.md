@@ -42,7 +42,7 @@ pipeline = {
     {
       name: :output_value,
       type: 'b/echo',
-      message: 'The current value is: {__value}'
+      message: 'The current value is: {__default_register}'
     },
     {
       name: :parse,
@@ -89,7 +89,7 @@ Some notes:
 
 * Some values are able to be string-interpolated using the provided Payload#params.  This allows for the passing runtime configuration/data into pipelines/jobs.
 * The job's ID can be accessed using the `__id` key.
-* The current job's payload value can be accessed using the `__value` key.
+* The current payload registers' values can be accessed using the `__<register_name>_register` key.
 * Jobs can be re-used (just like the output_id and output_value jobs).
 * If steps is nil then all jobs will execute in their declared order.
 
@@ -163,7 +163,7 @@ jobs:
 
   - name: output_value
     type: b/echo
-    message: 'The current value is: {__value}'
+    message: 'The current value is: {__default_register}'
 
   - name: parse
     type: b/deserialize/json
@@ -301,7 +301,7 @@ pipeline = {
     {
       name: :output_value,
       type: 'b/echo',
-      message: 'The current value is: {__value}'
+      message: 'The current value is: {__default_register}'
     },
     {
       name: :parse,

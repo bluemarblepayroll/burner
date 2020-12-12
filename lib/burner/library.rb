@@ -32,6 +32,7 @@ require_relative 'library/deserialize/yaml'
 
 require_relative 'library/io/exist'
 require_relative 'library/io/read'
+require_relative 'library/io/row_reader'
 require_relative 'library/io/write'
 
 require_relative 'library/serialize/csv'

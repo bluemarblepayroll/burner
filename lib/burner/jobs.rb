@@ -41,6 +41,7 @@ module Burner
 
     register 'b/io/exist',                     Library::IO::Exist
     register 'b/io/read',                      Library::IO::Read
+    register 'b/io/row_reader',                Library::IO::RowReader
     register 'b/io/write',                     Library::IO::Write
 
     register 'b/serialize/csv',                Library::Serialize::Csv

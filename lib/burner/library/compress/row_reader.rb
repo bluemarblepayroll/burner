@@ -49,7 +49,7 @@ module Burner
         end
 
         def perform(output, payload)
-          io = Zip::OutputStream.write_buffer do |zio|
+          payload[register] = Zip::OutputStream.write_buffer do |zip|
             array(payload[register]).each.with_index(1) do |record, index|
               path = resolver.get(record, path_key)
               data = resolver.get(record, data_key)
@@ -57,17 +57,19 @@ module Burner
               next if assert_and_skip_missing_path?(path, index, output)
               next if skip_missing_data?(data, index, output)
 
-              path = strip_leading_separator(path)
-
-              zio.put_next_entry(path)
-              zio.write(data)
+              add_to_zip(zip, path, data)
             end
-          end
-
-          payload[register] = io.string
+          end.string
         end
 
         private
+
+        def add_to_zip(zip, path, data)
+          path = strip_leading_separator(path)
+
+          zip.put_next_entry(path)
+          zip.write(data)
+        end
 
         def strip_leading_separator(path)
           path.to_s.start_with?(File::SEPARATOR) ? path.to_s[1..-1] : path.to_s

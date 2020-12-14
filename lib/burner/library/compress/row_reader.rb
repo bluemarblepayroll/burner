@@ -55,12 +55,12 @@ module Burner
         def perform(output, payload)
           payload[register] = Zip::OutputStream.write_buffer do |zip|
             array(payload[register]).each.with_index(1) do |record, index|
-              contents = extract_path_and_data(record, index, output)
+              content = extract_path_and_data(record, index, output)
 
-              next unless contents
+              next unless content
 
-              zip.put_next_entry(contents.path)
-              zip.write(contents.data)
+              zip.put_next_entry(content.path)
+              zip.write(content.data)
             end
           end.string
         end

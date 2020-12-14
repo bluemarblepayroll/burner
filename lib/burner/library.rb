@@ -26,6 +26,8 @@ require_relative 'library/collection/unpivot'
 require_relative 'library/collection/validate'
 require_relative 'library/collection/values'
 
+require_relative 'library/compress/row_reader'
+
 require_relative 'library/deserialize/csv'
 require_relative 'library/deserialize/json'
 require_relative 'library/deserialize/yaml'

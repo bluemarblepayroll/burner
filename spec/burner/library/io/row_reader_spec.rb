@@ -11,7 +11,6 @@ require 'spec_helper'
 
 describe Burner::Library::IO::RowReader do
   let(:path)                  { File.join('spec', 'fixtures', 'basic.txt') }
-  let(:params)                { { path: path } }
   let(:string_out)            { StringIO.new }
   let(:output)                { Burner::Output.new(outs: [string_out]) }
   let(:register)              { 'register_a' }

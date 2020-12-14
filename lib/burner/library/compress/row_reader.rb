@@ -19,6 +19,10 @@ module Burner
       # Expected Payload[register] input: array of objects.
       # Payload[register] output: compressed binary zip file contents.
       class RowReader < JobWithRegister
+        Content = Struct.new(:path, :data)
+
+        private_constant :Content
+
         DEFAULT_DATA_KEY = 'data'
         DEFAULT_PATH_KEY = 'path'
 
@@ -51,24 +55,26 @@ module Burner
         def perform(output, payload)
           payload[register] = Zip::OutputStream.write_buffer do |zip|
             array(payload[register]).each.with_index(1) do |record, index|
-              path = resolver.get(record, path_key)
-              data = resolver.get(record, data_key)
+              contents = extract_path_and_data(record, index, output)
 
-              next if assert_and_skip_missing_path?(path, index, output)
-              next if skip_missing_data?(data, index, output)
+              next unless contents
 
-              add_to_zip(zip, path, data)
+              zip.put_next_entry(contents.path)
+              zip.write(contents.data)
             end
           end.string
         end
 
         private
 
-        def add_to_zip(zip, path, data)
-          path = strip_leading_separator(path)
+        def extract_path_and_data(record, index, output)
+          path = strip_leading_separator(resolver.get(record, path_key))
+          data = resolver.get(record, data_key)
 
-          zip.put_next_entry(path)
-          zip.write(data)
+          return if assert_and_skip_missing_path?(path, index, output)
+          return if skip_missing_data?(data, index, output)
+
+          Content.new(path, data)
         end
 
         def strip_leading_separator(path)

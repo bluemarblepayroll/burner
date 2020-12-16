@@ -27,13 +27,13 @@ module Burner
         end
 
         def perform(_output, payload)
-          payload[register] = CSV.generate(options) do |csv|
-            csv.to_io.write(byte_order_mark) if byte_order_mark
-
+          serialized_rows = CSV.generate(options) do |csv|
             array(payload[register]).each do |row|
               csv << row
             end
           end
+
+          payload[register] = "#{byte_order_mark}#{serialized_rows}"
         end
 
         private

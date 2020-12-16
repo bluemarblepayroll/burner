@@ -249,7 +249,7 @@ By default all jobs will use the `Burner::Disks::Local` disk for its persistence
 
 #### Serialization
 
-* **b/serialize/csv** [register]: Take an array of arrays and create a CSV.
+* **b/serialize/csv** [byte_order_mark, register]: Take an array of arrays and create a CSV.  You can optionally pre-pend a byte order mark, see Burner::Modeling::ByteOrderMark for acceptable options.
 * **b/serialize/json** [register]: Convert value to JSON.
 * **b/serialize/yaml** [register]: Convert value to YAML.
 

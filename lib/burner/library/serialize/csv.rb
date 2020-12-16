@@ -10,13 +10,26 @@
 module Burner
   module Library
     module Serialize
-      # Take an array of arrays and create a CSV.
+      # Take an array of arrays and create a CSV.  You can optionally pre-pend a byte order mark,
+      # see Burner::Modeling::ByteOrderMark for acceptable options.
       #
       # Expected Payload[register] input: array of arrays.
       # Payload[register] output: a serialized CSV string.
       class Csv < JobWithRegister
+        attr_reader :byte_order_mark
+
+        def initialize(name:, byte_order_mark: nil, register: DEFAULT_REGISTER)
+          super(name: name, register: register)
+
+          @byte_order_mark = Modeling::ByteOrderMark.resolve(byte_order_mark)
+
+          freeze
+        end
+
         def perform(_output, payload)
           payload[register] = CSV.generate(options) do |csv|
+            csv.to_io.write(byte_order_mark) if byte_order_mark
+
             array(payload[register]).each do |row|
               csv << row
             end

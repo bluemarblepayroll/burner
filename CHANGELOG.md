@@ -1,5 +1,9 @@
 # 1.4.0 (TBD)
 
+Additions:
+
+* byte_order_mark option for b/serialize/csv job
+
 Added Jobs:
 
 * b/compress/row_reader

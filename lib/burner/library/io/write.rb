@@ -12,7 +12,9 @@ require_relative 'open_file_base'
 module Burner
   module Library
     module IO
-      # Write value to disk.
+      # Write value to disk.  By default, written files are also logged as WrittenFile
+      # instances to the Payload#side_effects array.  You can pass in
+      # supress_side_effect: true to disable this behavior.
       #
       # Expected Payload[register] input: anything.
       # Payload[register] output: whatever was passed in.

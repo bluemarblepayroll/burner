@@ -17,6 +17,27 @@ module Burner
       # Expected Payload[register] input: anything.
       # Payload[register] output: whatever was passed in.
       class Write < OpenFileBase
+        attr_reader :supress_side_effect
+
+        def initialize(
+          name:,
+          path:,
+          binary: false,
+          disk: {},
+          register: DEFAULT_REGISTER,
+          supress_side_effect: false
+        )
+          @supress_side_effect = supress_side_effect || false
+
+          super(
+            binary: binary,
+            disk: disk,
+            name: name,
+            path: path,
+            register: register
+          )
+        end
+
         def perform(output, payload)
           logical_filename  = job_string_template(path, output, payload)
           physical_filename = nil
@@ -28,6 +49,10 @@ module Burner
           end.real
 
           output.detail("Wrote to: #{physical_filename}")
+
+          return if supress_side_effect
+
+          output.detail("Saving to side effects: #{logical_filename}")
 
           side_effect = SideEffects::WrittenFile.new(
             logical_filename: logical_filename,

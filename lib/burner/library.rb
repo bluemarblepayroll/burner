@@ -44,4 +44,5 @@ require_relative 'library/serialize/json'
 require_relative 'library/serialize/yaml'
 
 require_relative 'library/value/copy'
+require_relative 'library/value/nest'
 require_relative 'library/value/static'

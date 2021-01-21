@@ -53,6 +53,7 @@ module Burner
     register 'b/serialize/yaml',               Library::Serialize::Yaml
 
     register 'b/value/copy',                   Library::Value::Copy
+    register 'b/value/nest',                   Library::Value::Nest
     register 'b/value/static',                 Library::Value::Static
   end
 end

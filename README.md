@@ -306,6 +306,7 @@ By default all jobs will use the `Burner::Disks::Local` disk for its persistence
 #### Value
 
 * **b/value/copy** [from_register, to_register]: Copy from_register's value into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
+* **b/value/nest** [key, register]: This job will nest the current value within a new outer hash.  The specified key passed in will be the corresponding new hash key entry for the existing value.
 * **b/value/static** [register, value]: Set the value to any arbitrary value.
 
 #### General

@@ -15,7 +15,7 @@ module Burner
   class JobWithRegister < Job
     attr_reader :register
 
-    def initialize(name:, register: DEFAULT_REGISTER)
+    def initialize(name: '', register: DEFAULT_REGISTER)
       super(name: name)
 
       @register = register.to_s

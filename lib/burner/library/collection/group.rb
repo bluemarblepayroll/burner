@@ -28,8 +28,8 @@ module Burner
         attr_reader :keys, :resolver
 
         def initialize(
-          name:,
           keys: [],
+          name: '',
           register: DEFAULT_REGISTER,
           separator: ''
         )

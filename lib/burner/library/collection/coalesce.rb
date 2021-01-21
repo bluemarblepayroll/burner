@@ -21,10 +21,10 @@ module Burner
         attr_reader :grouped_register, :key_mappings, :keys, :resolver
 
         def initialize(
-          name:,
           grouped_register:,
           key_mappings: [],
           keys: [],
+          name: '',
           register: DEFAULT_REGISTER,
           separator: ''
         )

@@ -149,6 +149,52 @@ describe Burner::Pipeline do
       expect(actual).to eq("---\nname: Funky Chicken!\n")
     end
 
+    specify 'json-to-yaml converter' do
+      pipeline = {
+        jobs: [
+          {
+            type: 'b/io/read',
+            path: '{input_file}'
+          },
+          {
+            type: 'b/echo',
+            message: 'The job id is: {__id}'
+          },
+          {
+            type: 'b/echo',
+            message: 'The current value is: {__value}'
+          },
+          {
+            type: 'b/deserialize/json'
+          },
+          {
+            type: 'b/serialize/yaml'
+          },
+          {
+            type: 'b/echo',
+            message: 'The current value is: {__value}'
+          },
+          {
+            type: 'b/io/write',
+            path: '{output_file}'
+          }
+        ]
+      }
+
+      params = {
+        input_file: File.join('spec', 'fixtures', 'input.json'),
+        output_file: File.join(TEMP_DIR, "#{SecureRandom.uuid}.yaml")
+      }
+
+      payload = Burner::Payload.new(params: params)
+
+      Burner::Pipeline.make(pipeline).execute(output: output, payload: payload)
+
+      actual = File.open(params[:output_file], 'r', &:read)
+
+      expect(actual).to eq("---\nname: Funky Chicken!\n")
+    end
+
     specify 'adding csv parsing job' do
       pipeline = {
         jobs: [

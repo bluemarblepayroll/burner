@@ -93,6 +93,54 @@ Some notes:
 * Jobs can be re-used (just like the output_id and output_value jobs).
 * If steps is nil then all jobs will execute in their declared order.
 
+### Omitting Job Names and Steps
+
+Job names are optional, but steps can only correspond to named jobs.  This means if steps is declared then anonymous jobs will have no way to be executed.  Here is the same pipeline as above, but without job names and steps:
+
+````ruby
+pipeline = {
+  jobs: [
+    {
+      type: 'b/io/read',
+      path: '{input_file}'
+    },
+    {
+      type: 'b/echo',
+      message: 'The job id is: {__id}'
+    },
+    {
+      type: 'b/echo',
+      message: 'The current value is: {__default_register}'
+    },
+    {
+      type: 'b/deserialize/json'
+    },
+    {
+      type: 'b/serialize/yaml'
+    },
+    {
+      type: 'b/echo',
+      message: 'The current value is: {__default_register}'
+    },
+    {
+      type: 'b/io/write',
+      path: '{output_file}'
+    }
+  ]
+}
+
+params = {
+  input_file: 'input.json',
+  output_file: 'output.yaml'
+}
+
+payload = Burner::Payload.new(params: params)
+
+Burner::Pipeline.make(pipeline).execute(payload: payload)
+````
+
+Like everything in software, there are trade-offs to the above two equivalent pipelines.  The former (one with steps and job names) has less jobs but is more verbose.  The latter (without steps and job names) has more jobs but reads terser.  Names also can aid in self-documenting your code/configuration so it may be a good idea to enforce at least names are used.
+
 ### Capturing Feedback / Output
 
 By default, output will be emitted to `$stdout`.  You can add or change listeners by passing in optional values into Pipeline#execute.  For example, say we wanted to capture the output from our json-to-yaml example:

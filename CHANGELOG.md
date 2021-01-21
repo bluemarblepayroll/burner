@@ -5,6 +5,7 @@ Added Jobs:
 
 * b/collection/number
 * b/value/nest
+* b/value/transform
 
 Enhanced Jobs:
 

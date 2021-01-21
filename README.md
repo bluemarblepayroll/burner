@@ -308,6 +308,7 @@ By default all jobs will use the `Burner::Disks::Local` disk for its persistence
 * **b/value/copy** [from_register, to_register]: Copy from_register's value into the to_register.  Note: this does not do any deep copying and should be assumed it is shallow copying all objects.
 * **b/value/nest** [key, register]: This job will nest the current value within a new outer hash.  The specified key passed in will be the corresponding new hash key entry for the existing value.
 * **b/value/static** [register, value]: Set the value to any arbitrary value.
+* **b/value/transform** [register, separator, transformers]: Transform the current value of the register through a Realize::Pipeline.  This will transform the entire value, as opposed to the b/collection/transform job, which will iterate over each row/record in a dataset and transform each row/record.
 
 #### General
 

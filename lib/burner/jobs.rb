@@ -55,5 +55,6 @@ module Burner
     register 'b/value/copy',                   Library::Value::Copy
     register 'b/value/nest',                   Library::Value::Nest
     register 'b/value/static',                 Library::Value::Static
+    register 'b/value/transform',              Library::Value::Transform
   end
 end

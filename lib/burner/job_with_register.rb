@@ -20,5 +20,12 @@ module Burner
 
       @register = register.to_s
     end
+
+    protected
+
+    # Helper method that knows how to ensure the register is an array.
+    def ensure_array(payload)
+      payload[register] = array(payload[register])
+    end
   end
 end

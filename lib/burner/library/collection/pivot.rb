@@ -85,7 +85,7 @@ module Burner
 
           pivoted_objects = table.to_a.map(&:fields)
 
-          output.detail("Resulting dataset has #{pivoted_objects} object(s)")
+          output.detail("Resulting dataset has #{pivoted_objects.length} object(s)")
 
           payload[register] = pivoted_objects
         end

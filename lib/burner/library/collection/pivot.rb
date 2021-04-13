@@ -117,12 +117,15 @@ module Burner
           end
         end
 
-        def make_table(objects)
-          key_map     = make_key_map(objects)
-          record_keys = unique_keys + other_keys + key_map.values.map(&:first)
-          prototype   = HashMath::Record.new(record_keys)
+        def make_record(objects)
+          key_map = make_key_map(objects)
+          keys    = non_pivoted_keys + key_map.values.map(&:first)
 
-          HashMath::Table.new(prototype)
+          HashMath::Record.new(keys)
+        end
+
+        def make_table(objects)
+          HashMath::Table.new(make_record(objects))
         end
 
         def object_to_table(object, table)

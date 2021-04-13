@@ -11,11 +11,15 @@ require 'file_helper'
 require 'spec_helper'
 
 describe Burner::Library::Collection::Pivot do
-  let(:denormalized_patients) { read_yaml_file('spec', 'fixtures', 'denormalized_patients.yaml') }
-  let(:normalized_patients)   { read_yaml_file('spec', 'fixtures', 'normalized_patients.yaml') }
+  let(:denormalized_patients) { read_yaml_fixture_file('denormalized_patients.yaml') }
+  let(:normalized_patients)   { read_yaml_fixture_file('normalized_patients.yaml') }
 
   let(:denormalized_insensitive_patients) do
-    read_yaml_file('spec', 'fixtures', 'denormalized_insensitive_patients.yaml')
+    read_yaml_fixture_file('denormalized_insensitive_patients.yaml')
+  end
+
+  let(:complete_denormalized_patients) do
+    read_yaml_fixture_file('complete_denormalized_patients.yaml')
   end
 
   let(:string_out)      { StringIO.new }
@@ -23,7 +27,7 @@ describe Burner::Library::Collection::Pivot do
   let(:register)        { 'register_a' }
   let(:payload)         { Burner::Payload.new(registers: { register => normalized_patients }) }
   let(:unique_keys)     { %w[practice_id patient_id] }
-  let(:other_keys)      { %w[favorite_doctor] }
+  let(:other_keys)      { %w[] }
   let(:pivot_key)       { :key }
   let(:pivot_value_key) { :value }
   let(:insensitive)     { false }
@@ -59,9 +63,26 @@ describe Burner::Library::Collection::Pivot do
       expect(actual).to match_array(expected)
     end
 
+    context 'when other_keys is populated' do
+      let(:other_keys) { %w[favorite_doctor] }
+      let(:expected)   { complete_denormalized_patients }
+
+      it 'treats keys as lowercase string for uniqueness' do
+        actual = payload[register]
+
+        expect(actual.length).to eq(expected.length)
+      end
+
+      it 'has the right pivoted data' do
+        actual = payload[register]
+
+        expect(actual).to match_array(expected)
+      end
+    end
+
     context 'when insensitive' do
       let(:insensitive) { true }
-      let(:expected) { denormalized_insensitive_patients }
+      let(:expected)    { denormalized_insensitive_patients }
 
       it 'treats keys as lowercase string for uniqueness' do
         actual = payload[register]

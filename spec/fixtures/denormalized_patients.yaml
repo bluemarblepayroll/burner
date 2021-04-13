@@ -2,7 +2,6 @@
 # Patient Example
 - practice_id: Bozos Healthcare Emporium
   patient_id: 2
-  favorite_doctor: Bart
   first_name: Frank
   last_name: Rizzo
   phone_number: 555-555-5555
@@ -11,7 +10,6 @@
 # Same Practice, Different Patient ID
 - practice_id: Bozos Healthcare Emporium
   patient_id: 3
-  favorite_doctor: Lisa
   first_name: Hops
   last_name: Bunny
   phone_number: 777-777-7777
@@ -20,7 +18,6 @@
 # Different Practice, Same Patient ID
 - practice_id: Rizzos Emergency Care
   patient_id: 2
-  favorite_doctor: Millhouse
   first_name: Donald
   last_name: Duck
   phone_number: 666-666-6666

@@ -102,6 +102,10 @@ module Burner
           insensitive ? value.to_s.downcase : value
         end
 
+        def make_row_id(object)
+          unique_keys.map { |k| make_key(resolver.get(object, k)) }
+        end
+
         def make_key_map(objects)
           objects.each_with_object({}) do |object, key_map|
             key = resolver.get(object, pivot_key)
@@ -122,7 +126,7 @@ module Burner
         end
 
         def object_to_table(object, table)
-          row_id = unique_keys.map { |k| resolver.get(object, k) }
+          row_id = make_row_id(object)
 
           non_pivoted_keys.each do |key|
             value = resolver.get(object, key)

@@ -41,15 +41,23 @@ describe Burner::Library::Collection::OnlyKeys do
   end
 
   describe '#perform' do
-    it 'copies value in register' do
-      subject.perform(output, payload)
+    before { subject.perform(output, payload) }
 
+    it 'filters objects and only keeps the keys found in the keys_register' do
       expected = [
         { id: 1, last: 'clown' },
         { id: 2, last: 'rizzo' },
       ]
 
       expect(payload[register]).to eq(expected)
+    end
+
+    it 'outputs how many objects will be filtered' do
+      expect(string_out.string).to include('Dynamically limiting 2 object(s)')
+    end
+
+    it 'outputs keys to use as a filter' do
+      expect(string_out.string).to include(keys.join(', '))
     end
   end
 end

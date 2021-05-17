@@ -1,3 +1,9 @@
+# 1.11.0 (May 17th, 2021)
+
+Added Jobs:
+
+* b/collection/dynamic_arrays_to_objects
+
 # 1.10.0 (May 17th, 2021)
 
 Added Jobs:

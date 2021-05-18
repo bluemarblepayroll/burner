@@ -17,8 +17,6 @@ module Burner
       # Expected Payload[register] input: array of objects.
       # Payload[register] output: An array of objects.
       class OnlyKeys < JobWithRegister
-        BLANK = ''
-
         attr_reader :keys_register,
                     :resolver
 

@@ -16,14 +16,12 @@ module Burner
       #
       # Expected Payload[register] input: array of arrays.
       # Payload[register] output: An array of hashes.
-      class DynamicArraysToObjects < JobWithRegister
-        BLANK = ''
-
+      class FlatFileParse < JobWithRegister
         attr_reader :keys_register,
                     :resolver
 
         def initialize(
-          keys_register:,
+          keys_register: BLANK,
           name: '',
           register: DEFAULT_REGISTER,
           separator: BLANK
@@ -38,12 +36,13 @@ module Burner
 
         def perform(output, payload)
           objects = array(payload[register])
+          keys    = array(objects.shift)
           count   = objects.length
-          keys    = array(payload[keys_register])
 
-          output.detail("Dynamically mapping #{count} array(s) to key(s): #{keys.join(', ')}")
+          output.detail("Mapping #{count} array(s) to key(s): #{keys.join(', ')}")
 
-          payload[register] = objects.map { |object| transform(object, keys) }
+          payload[register]      = objects.map { |object| transform(object, keys) }
+          payload[keys_register] = keys
         end
 
         private

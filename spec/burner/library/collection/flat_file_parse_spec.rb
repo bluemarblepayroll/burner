@@ -9,9 +9,10 @@
 
 require 'spec_helper'
 
-describe Burner::Library::Collection::DynamicArraysToObjects do
+describe Burner::Library::Collection::FlatFileParse do
   let(:arrays) do
     [
+      %w[id first last],
       %w[1 captain kangaroo i should not be in the results],
       %w[2 twisted sister]
     ]
@@ -32,36 +33,43 @@ describe Burner::Library::Collection::DynamicArraysToObjects do
     ]
   end
 
-  let(:keys)          { %w[id first last] }
-  let(:string_out)    { StringIO.new }
-  let(:output)        { Burner::Output.new(outs: [string_out]) }
-  let(:register)      { 'register_a' }
-  let(:keys_register) { 'headers' }
+  let(:string_out)         { StringIO.new }
+  let(:output)             { Burner::Output.new(outs: [string_out]) }
+  let(:register)           { 'register_a' }
+  let(:keys_register)      { 'headers' }
 
   let(:payload) do
     Burner::Payload.new(
       registers: {
-        register => arrays,
-        keys_register => keys
+        register => arrays.dup
       }
     )
   end
 
-  subject { described_class.make(keys_register: keys_register, register: register) }
+  subject do
+    described_class.make(
+      keys_register: keys_register,
+      register: register
+    )
+  end
 
   describe '#perform' do
     before { subject.perform(output, payload) }
 
-    it 'returns objects as hashes not arrays' do
+    it 'sets main register to objects as hashes not arrays' do
       expect(payload[register]).to eq(objects)
     end
 
-    it 'outputs how many objects will be filtered' do
-      expect(string_out.string).to include('Dynamically mapping 2 array(s)')
+    it 'sets keys_register to the first array entry' do
+      expect(payload[keys_register]).to eq(arrays.first)
     end
 
-    it 'outputs keys to use as a filter' do
-      expect(string_out.string).to include(keys.join(', '))
+    it 'outputs how many objects will be filtered' do
+      expect(string_out.string).to include('Mapping 2 array(s)')
+    end
+
+    it 'outputs keys' do
+      expect(string_out.string).to include(arrays.first.join(', '))
     end
   end
 end

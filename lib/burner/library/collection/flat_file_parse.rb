@@ -12,7 +12,19 @@ module Burner
     module Collection
       # Convert an array of arrays to an array of objects.  The difference between this
       # job and ArraysToObjects is that this one does not take in mappings and instead
-      # will use another register for a list of keys.
+      # will use the first entry as the array of keys to positionally map to.
+      #
+      # For example, if a register had this:
+      #
+      #   [['id', 'first', 'last'], [1, 'frank', 'rizzo']]
+      #
+      # Then executing this job would result in this:
+      #
+      #   [{ 'id' => 1, 'first' => frank, 'last' => rizzo }]
+      #
+      # As a side-effect, the keys_register would result in this:
+      #
+      #   ['id', 'first', 'last']
       #
       # Expected Payload[register] input: array of arrays.
       # Payload[register] output: An array of hashes.
@@ -21,7 +33,7 @@ module Burner
                     :resolver
 
         def initialize(
-          keys_register: BLANK,
+          keys_register:,
           name: '',
           register: DEFAULT_REGISTER,
           separator: BLANK

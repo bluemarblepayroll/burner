@@ -7,7 +7,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-require_relative 'job_with_register'
+require_relative 'job_with_dynamic_keys'
 
 require_relative 'library/echo'
 require_relative 'library/nothing'
